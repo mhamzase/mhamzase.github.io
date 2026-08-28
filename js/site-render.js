@@ -500,40 +500,65 @@
   }
 
   function renderContact() {
+    // Address
     var address = document.getElementById("contact-address");
     if (address)
       address.innerHTML = siteData.contact.addressLines.join("<br>\n");
 
+    // Phone (click to call)
     var phone = document.getElementById("contact-phone");
-    if (phone)
+    if (phone) {
+      var phoneNumber = siteData.contact.phone.replace(/\s+/g, ""); // Remove spaces
       phone.innerHTML =
         '<span class="text-primary text-4 me-2"><i class="fas fa-phone"></i></span>' +
-        siteData.contact.phone;
+        '<a href="tel:' +
+        phoneNumber +
+        '" class="text-light text-decoration-none">' +
+        siteData.contact.phone +
+        "</a>";
+    }
 
+    // WhatsApp (click to chat)
     var whatsapp = document.getElementById("contact-whatsapp");
-    if (whatsapp)
+    if (whatsapp) {
+      var waNumber = siteData.contact.whatsapp
+        .replace(/\s+/g, "")
+        .replace("+", ""); // Remove spaces and leading +
       whatsapp.innerHTML =
         '<span class="text-primary text-4 me-2"><i class="fab fa-whatsapp"></i></span>' +
-        siteData.contact.whatsapp;
+        '<a href="https://wa.me/' +
+        waNumber +
+        '" target="_blank" rel="noopener noreferrer" class="text-light text-decoration-none">' +
+        siteData.contact.whatsapp +
+        "</a>";
+    }
 
+    // Email (click to compose)
     var email = document.getElementById("contact-email");
-    if (email)
+    if (email) {
       email.innerHTML =
         '<span class="text-primary text-4 me-2"><i class="fas fa-envelope"></i></span>' +
-        siteData.contact.email;
+        '<a href="mailto:' +
+        siteData.contact.email +
+        '" class="text-light text-decoration-none">' +
+        siteData.contact.email +
+        "</a>";
+    }
 
-    var workingHours = document.getElementById("contact-working-hours");
-    if (workingHours)
-      workingHours.innerHTML =
-        '<span class="text-primary text-4 me-2"><i class="fas fa-clock"></i></span>' +
-        siteData.contact.workingHours;
+    // Working hours (commented out, leave as is)
+    /*
+  var workingHours = document.getElementById('contact-working-hours');
+  if (workingHours) workingHours.innerHTML = '<span class="text-primary text-4 me-2"><i class="fas fa-clock"></i></span>' + siteData.contact.workingHours;
+  */
 
+    // Response time
     var responseTime = document.getElementById("contact-response-time");
     if (responseTime)
       responseTime.innerHTML =
         '<span class="text-primary text-4 me-2"><i class="fas fa-bolt"></i></span>' +
         siteData.contact.responseTime;
 
+    // Social icons (excluding WhatsApp because it's already in contact info)
     var contactSocial = document.getElementById("contact-social-icons");
     if (contactSocial) {
       var linksWithoutWhatsapp = siteData.socialLinks.filter(function (s) {
