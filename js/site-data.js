@@ -17,9 +17,10 @@ const siteData = {
     tagline:
       "I build scalable digital products that solve real business problems.",
     typedStrings: [
-      "I'm a Senior Software Engineer",
+      "I'm a Principal Software Engineer",
       "I'm a Tech Lead & Mentor",
-      "I build Scalable Web Applications",
+      "I build Scalable Software Solutions",
+      "I architect Cloud-Native Systems",
       "I turn Ideas into Products",
     ],
     resumeFile: "mhamza-resume.pdf",
