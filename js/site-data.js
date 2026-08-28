@@ -17,7 +17,6 @@ const siteData = {
     tagline:
       "I build scalable digital products that solve real business problems.",
     typedStrings: [
-      "I'm Hamza Shabbir",
       "I'm a Senior Software Engineer",
       "I'm a Tech Lead & Mentor",
       "I build Scalable Web Applications",

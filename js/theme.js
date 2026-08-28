@@ -287,13 +287,13 @@
     Typed
 -------------------------------------- */
 
-  $(".typed").each(function () {
+$(".typed").each(function () {
     var typed = new Typed(".typed", {
       stringsElement: ".typed-strings",
       loop: true,
-      typeSpeed: 100,
-      backSpeed: 50,
-      backDelay: 1500,
+      typeSpeed: 20,      // faster typing (was 100)
+      backSpeed: 20,      // faster erasing (was 50)
+      backDelay: 2000,    // stay 2 seconds before deleting (was 1500)
     });
   });
 
