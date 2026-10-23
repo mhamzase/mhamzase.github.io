@@ -601,16 +601,30 @@ html[data-theme="light"] .theme-toggle { color: #8a680c; }
 @media (max-width: 1020px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 540px) { .process-grid { grid-template-columns: 1fr; } }
 
-/* Case study button on work cards + modal */
-.work-actions { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; align-items: center; }
+/* Case study button on work cards + modal.
+   The row carries the top margin (not .work-link, whose own margin-top
+   used to push it below the button and break the alignment). */
+.work-actions {
+  display: flex; flex-wrap: wrap; gap: 0.7rem 1.3rem;
+  align-items: center; margin-top: 1.2rem;
+}
+.work-actions .work-link { margin-top: 0; line-height: 1; }
 .case-btn {
-  font: inherit; font-weight: 700; font-size: 0.92rem; cursor: pointer;
-  background: none; border: none; padding: 0; color: var(--gold-2);
-  display: inline-flex; align-items: center; gap: 0.4rem;
+  font: inherit; font-weight: 700; font-size: 0.9rem; line-height: 1; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.6rem 1.15rem; border-radius: 99px;
+  color: var(--gold-2);
+  background: rgba(212, 175, 55, 0.10);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 .case-btn svg { width: 15px; height: 15px; }
-.case-btn:hover { text-decoration: underline; }
-html[data-theme="light"] .case-btn { color: #8a680c; }
+.case-btn:hover {
+  background: linear-gradient(120deg, var(--gold-2), var(--gold));
+  color: #131313; border-color: transparent; transform: translateY(-1px);
+}
+html[data-theme="light"] .case-btn { color: #8a680c; border-color: rgba(138, 104, 12, 0.5); }
+html[data-theme="light"] .case-btn:hover { color: #131313; }
 .modal-overlay {
   position: fixed; inset: 0; z-index: 200;
   background: rgba(3, 4, 8, 0.72); backdrop-filter: blur(6px);
