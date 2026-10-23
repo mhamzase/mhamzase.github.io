@@ -337,7 +337,7 @@
       techFilterBar.hidden = true;
       techFilterBar.innerHTML = "";
     }
-    document.querySelectorAll(".tech-chip.chip-active").forEach(function (c) {
+    document.querySelectorAll("#tech-stack-container .chip.chip-active").forEach(function (c) {
       c.classList.remove("chip-active");
     });
   }
@@ -378,7 +378,7 @@
     }
   }
   /* Only chips that match at least one project become clickable */
-  document.querySelectorAll(".tech-chip").forEach(function (chip) {
+  document.querySelectorAll("#tech-stack-container .chip").forEach(function (chip) {
     var tech = chip.textContent.trim().toLowerCase();
     var matches = 0;
     document.querySelectorAll(".work-card").forEach(function (card) {

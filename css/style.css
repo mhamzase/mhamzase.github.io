@@ -655,9 +655,9 @@ html[data-theme="light"] .case-h { color: #8a680c; }
 @media (max-width: 540px) { .modal-panel { padding: 1.6rem 1.3rem 1.5rem; } }
 
 /* Clickable tech chips + active filter note */
-.tech-chip.chip-link { cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
-.tech-chip.chip-link:hover { border-color: rgba(212, 175, 55, 0.45); color: var(--gold-2); }
-.tech-chip.chip-active {
+#tech-stack-container .chip.chip-link { cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
+#tech-stack-container .chip.chip-link:hover { border-color: rgba(212, 175, 55, 0.45); color: var(--gold-2); }
+.chip.chip-active {
   background: linear-gradient(120deg, var(--gold-2), var(--gold));
   color: #131313; border-color: transparent; font-weight: 700;
 }

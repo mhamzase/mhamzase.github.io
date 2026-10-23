@@ -424,12 +424,6 @@
 
     <!-- Scripts: data first, then renderer, then interactions.
          All libraries are local files, nothing loads from a CDN. -->
-    <script src="js/site-data.js"></script>
-    <script src="js/site-render.js"></script>
-    <script src="js/vendor/gsap.min.js"></script>
-    <script src="js/vendor/ScrollTrigger.min.js"></script>
-    <script src="js/main.js"></script>
-
     <!-- Case study modal: filled by js/main.js from site-data.js -->
     <div class="modal-overlay" id="case-modal" hidden>
       <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="case-title">
@@ -437,5 +431,11 @@
         <div id="case-content"></div>
       </div>
     </div>
+    <script src="js/site-data.js"></script>
+    <script src="js/site-render.js"></script>
+    <script src="js/vendor/gsap.min.js"></script>
+    <script src="js/vendor/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+
   </body>
 </html>
