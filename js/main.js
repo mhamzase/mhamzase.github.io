@@ -382,7 +382,7 @@
          aborted after 12 seconds (AbortController) and the mailto
          fallback takes over: the form can never sit on "Sending..."
          forever and a message is never lost. */
-      var WEB3FORMS_ACCESS_KEY = "";
+      var WEB3FORMS_ACCESS_KEY = "63ec2907-35e4-474c-bca0-b1abde1e0f26";
       var useWeb3 = WEB3FORMS_ACCESS_KEY.length > 0;
       var endpoint = useWeb3
         ? "https://api.web3forms.com/submit"
