@@ -301,19 +301,32 @@
             return '<span class="chip">' + t + "</span>";
           })
           .join("");
+        var visual = project.image
+          ? '<div class="work-visual has-shot" style="--hue:' +
+            project.hue +
+            '">' +
+            '<img class="work-shot" src="' +
+            project.image +
+            '" alt="Screenshot of ' +
+            project.name +
+            '" loading="lazy" width="1080" height="608">' +
+            '<span class="work-cat">' +
+            project.categoryLabel +
+            "</span></div>"
+          : '<div class="work-visual" style="--hue:' +
+            project.hue +
+            '">' +
+            '<span class="work-cat">' +
+            project.categoryLabel +
+            "</span>" +
+            '<span class="work-mono" aria-hidden="true">' +
+            monogram(project.shortName) +
+            "</span></div>";
         return (
           '<article class="work-card reveal" data-category="' +
           project.category +
           '">' +
-          '<div class="work-visual" style="--hue:' +
-          project.hue +
-          '">' +
-          '<span class="work-cat">' +
-          project.categoryLabel +
-          "</span>" +
-          '<span class="work-mono" aria-hidden="true">' +
-          monogram(project.shortName) +
-          "</span></div>" +
+          visual +
           '<div class="work-body"><h3>' +
           project.name +
           '</h3><p class="work-role">' +
