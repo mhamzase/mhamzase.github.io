@@ -424,12 +424,13 @@
       })
       .join("");
     caseContent.innerHTML =
-      '<p class="modal-eyebrow">' +
+      '<div class="modal-head"><p class="modal-eyebrow">' +
       project.categoryLabel +
       " · Case Study</p>" +
       '<h3 class="modal-title" id="case-title">' +
       project.name +
-      "</h3>" +
+      "</h3></div>" +
+      '<div class="modal-body">' +
       '<h4 class="case-h">The problem</h4><p class="case-p">' +
       cs.problem +
       "</p>" +
@@ -438,13 +439,13 @@
       "</ul>" +
       '<h4 class="case-h">The result</h4><p class="case-p">' +
       cs.outcome +
-      "</p>" +
-      '<div class="work-tags">' +
+      "</p></div>" +
+      '<div class="modal-foot"><div class="work-tags">' +
       tags +
       "</div>" +
       '<a class="btn btn-primary modal-visit" href="' +
       project.url +
-      '" target="_blank" rel="noopener noreferrer">Visit the live product</a>';
+      '" target="_blank" rel="noopener noreferrer">Visit the live product</a></div>';
     caseModal.hidden = false;
     requestAnimationFrame(function () {
       caseModal.classList.add("open");
