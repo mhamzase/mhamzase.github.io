@@ -147,6 +147,25 @@
     }
   }
 
+  /* 3b. Rotating stack badge: cycles through his stacks so no single
+         stack reads as his only "core" */
+  var stackEl = document.getElementById("stack-rotator");
+  var stacks =
+    typeof siteData !== "undefined" && siteData.profile.stackRotations
+      ? siteData.profile.stackRotations
+      : [];
+  if (stackEl && stacks.length > 1 && !reducedMotion) {
+    var stackIndex = 0;
+    setInterval(function () {
+      stackEl.classList.add("swap-out");
+      setTimeout(function () {
+        stackIndex = (stackIndex + 1) % stacks.length;
+        stackEl.textContent = stacks[stackIndex];
+        stackEl.classList.remove("swap-out");
+      }, 360);
+    }, 2600);
+  }
+
   /* 4. GSAP reveals --------------------------------------------------------------- */
   var hasGsap = typeof window.gsap !== "undefined";
   if (hasGsap && !reducedMotion) {

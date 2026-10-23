@@ -337,7 +337,9 @@ html[data-theme="light"] .theme-toggle { color: #8a680c; }
 .float-badge span { color: var(--muted); font-size: 0.72rem; font-weight: 500; }
 .float-badge-a { top: 6%; left: -13%; }
 .float-badge-b { bottom: 17%; right: -11%; }
-.float-badge-c { bottom: -4%; left: 7%; }
+.float-badge-c { bottom: -4%; left: 7%; min-width: 178px; justify-items: center; }
+#stack-rotator { display: inline-block; transition: opacity 0.35s ease, transform 0.35s ease; }
+#stack-rotator.swap-out { opacity: 0; transform: translateY(6px); }
 
 .scroll-hint {
   position: absolute; left: 50%; bottom: 1.6rem; transform: translateX(-50%);

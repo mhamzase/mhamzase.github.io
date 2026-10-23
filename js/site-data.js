@@ -27,6 +27,15 @@ const siteData = {
       "I turn ideas into working products",
     ],
     resumeFile: "resume.pdf",
+    /* Rotating pairs for the hero badge: no single stack is "the core",
+       the badge cycles through the stacks he actually works in. */
+    stackRotations: [
+      "Laravel · React",
+      "Vue · Node.js",
+      "Python · REST APIs",
+      "WordPress · Shopify",
+      "MySQL · Docker · AWS",
+    ],
   },
 
   socialLinks: [
