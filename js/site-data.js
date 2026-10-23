@@ -492,8 +492,8 @@ const siteData = {
         "Community forum with moderation tools",
       ],
       technologies: ["Laravel", "React.js", "MySQL", "REST APIs", "GitHub"],
-      url: "https://wearethetheymovement.com/",
-      urlText: "wearethetheymovement.com",
+      url: "https://www.joinwatt.com/",
+      urlText: "joinwatt.com",
     },
     {
       name: "AK Tech Sol: Agency Website and Business System",
