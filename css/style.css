@@ -518,7 +518,10 @@ html[data-theme="light"] .theme-toggle { color: #8a680c; }
   background: linear-gradient(120deg, var(--gold-2), var(--gold));
   color: var(--gold-dark); border-color: transparent;
 }
-.work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+@media (max-width: 1120px) {
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
+}
 .work-card {
   border-radius: var(--radius); overflow: hidden;
   background: var(--surface); border: 1px solid var(--border);
@@ -565,7 +568,7 @@ html[data-theme="light"] .theme-toggle { color: #8a680c; }
   background: rgba(5, 7, 12, 0.62); border: 1px solid rgba(255, 255, 255, 0.16);
   padding: 0.35rem 0.75rem; border-radius: 99px; color: #e8ecf4;
 }
-.work-body { padding: 1.6rem; }
+.work-body { padding: 1.35rem; }
 .work-body h3 { font-size: 1.14rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.35; }
 .work-role { color: var(--gold-2); font-size: 0.86rem; font-weight: 600; margin-top: 0.3rem; }
 .work-desc { color: var(--muted); font-size: 0.93rem; margin-top: 0.7rem; }
