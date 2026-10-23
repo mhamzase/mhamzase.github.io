@@ -377,11 +377,34 @@
         submitBtn.textContent = originalLabel;
       }
 
-      /* Primary delivery: FormSubmit AJAX sends the message straight to
-         Hamza's inbox. The free endpoint can be very slow, so the request
-         is aborted after 12 seconds (AbortController) and the mailto
+      /* Delivery goes to Web3Forms once its (public) access key is pasted
+         below. Until then FormSubmit is used. Either way the request is
+         aborted after 12 seconds (AbortController) and the mailto
          fallback takes over: the form can never sit on "Sending..."
          forever and a message is never lost. */
+      var WEB3FORMS_ACCESS_KEY = "";
+      var useWeb3 = WEB3FORMS_ACCESS_KEY.length > 0;
+      var endpoint = useWeb3
+        ? "https://api.web3forms.com/submit"
+        : "https://formsubmit.co/ajax/mhamzasulehri143@gmail.com";
+      var payload = useWeb3
+        ? {
+            access_key: WEB3FORMS_ACCESS_KEY,
+            from_name: "Portfolio Website",
+            name: name,
+            email: email,
+            subject: finalSubject,
+            message: message,
+            botcheck: "",
+          }
+        : {
+            name: name,
+            email: email,
+            _subject: finalSubject,
+            message: message,
+            _template: "table",
+            _captcha: "false",
+          };
       var controller =
         "AbortController" in window ? new AbortController() : null;
       var abortTimer = controller
@@ -389,18 +412,11 @@
             controller.abort();
           }, 12000)
         : null;
-      fetch("https://formsubmit.co/ajax/mhamzasulehri143@gmail.com", {
+      fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         signal: controller ? controller.signal : undefined,
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          _subject: finalSubject,
-          message: message,
-          _template: "table",
-          _captcha: "false",
-        }),
+        body: JSON.stringify(payload),
       })
         .then(function (response) {
           if (abortTimer) clearTimeout(abortTimer);
