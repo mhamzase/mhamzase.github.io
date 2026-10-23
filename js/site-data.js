@@ -371,6 +371,19 @@ const siteData = {
       url: "https://tailor.aktechsol.pk",
       urlText: "tailor.aktechsol.pk",
       image: "images/projects/tailor-app.webp",
+      caseStudy: {
+        problem:
+          "Tailor shops run on paper: orders in one register, measurements in another, and udhaar (credit) remembered, not recorded. Delivery dates get missed, old measurements get lost, and the owner never really knows who owes what or which shop work is pending.",
+        built: [
+          "A multi-tenant SaaS: every shop gets its own private workspace, staff accounts, and roles, while I run the whole platform from one admin panel",
+          "Orders tied to each customer's saved measurements, with delivery dates and status tracking",
+          "An udhaar ledger that shows, per customer, how much is owed and since when",
+          "Subscription plans with a free trial, so shops pay monthly like any modern software",
+          "Per-shop backup and restore with automatic weekly backups, so a shop's data is never lost",
+        ],
+        outcome:
+          "The product is live and shops run their daily work on it: orders, measurements, payments, and credit, all in one place instead of scattered registers. It is the product that taught me how to build software other businesses depend on every day.",
+      },
     },
     {
       name: "AK Designer Art: Online Learning Platform",
@@ -390,6 +403,19 @@ const siteData = {
       technologies: ["Laravel", "MySQL", "Spatie Media Library", "JavaScript"],
       url: "https://akdesignerart.com",
       urlText: "akdesignerart.com",
+      caseStudy: {
+        problem:
+          "The institute sold its courses through chats and phone calls. Enrollment requests, fee receipts, and installment tracking lived in notebooks and inboxes, so approvals were slow and staff could not quickly answer a simple question: who has paid, and who still owes?",
+        built: [
+          "A full course catalog with enrollment requests and a payment proof approval flow",
+          "Installment plans of 2 to 6 months, tracked per student",
+          "Four separate panels: CMS for admins, an LMS for students, an instructor panel, and a referral panel",
+          "Demo class booking for schools, with session confirmations by email",
+          "Each course's WhatsApp group link is sent automatically in the approval email",
+        ],
+        outcome:
+          "The platform is live at akdesignerart.com with 18 courses, 2,700+ students, and 20 instructors on it. Enrollments, installments, and class coordination that used to run through calls and notebooks now run through the system.",
+      },
     },
     {
       name: "University of South Asia: Official Website",
@@ -488,6 +514,19 @@ const siteData = {
       url: "https://aktechsol.pk",
       urlText: "aktechsol.pk",
       image: "images/projects/ak-tech-sol.webp",
+      caseStudy: {
+        problem:
+          "My own agency's work arrived as scattered inquiries in chats and email. Proposals were written from scratch each time, invoices lived in separate files, and when a project finished, working out each team member's share of the revenue was a manual, error-prone job.",
+        built: [
+          "One pipeline in a single admin panel: inquiry to proposal to project to invoice, nothing tracked outside the system",
+          "Proposals and invoices in multiple currencies, because clients are not all in Pakistan",
+          "Revenue distribution: each project's income is split among the team with payment proof recorded",
+          "A public website with services, portfolio, blog, and an AI chatbot that answers visitors",
+          "The whole team works in it: roles, task assignment, and activity history",
+        ],
+        outcome:
+          "The system runs the agency's daily work at aktechsol.pk. It started as a website and became the tool the business operates on, which is exactly the kind of software I now build for clients.",
+      },
     },
     {
       name: "Social Aviation: Digital Agency Website",
@@ -507,6 +546,26 @@ const siteData = {
       technologies: ["HTML", "CSS", "Bootstrap", "JavaScript", "GitHub"],
       url: "http://socialaviation.uk/",
       urlText: "socialaviation.uk",
+    },
+  ],
+
+  /* How I work: the same flow he runs for clients at his agency */
+  process: [
+    {
+      title: "We talk first",
+      text: "You explain the problem on a call or WhatsApp. I ask questions until I understand your business, not just the feature list, because the right system depends on how you actually work.",
+    },
+    {
+      title: "A clear proposal",
+      text: "You get the scope, the price, and the timeline in writing before any work starts. What is agreed is what gets built, and there are no surprises later.",
+    },
+    {
+      title: "Built in stages",
+      text: "I build in stages and show you progress as it happens, so you can give feedback while changes are still cheap, not only at the very end.",
+    },
+    {
+      title: "Launch and support",
+      text: "Your product goes live properly: deployed, tested, and handed over with everything documented. After that I stay available for fixes, changes, and the next phase.",
     },
   ],
 

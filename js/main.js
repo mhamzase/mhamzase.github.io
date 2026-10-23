@@ -3,7 +3,7 @@
    1. Preloader            5. Light 3D tilt (desktop, pointer only)
    2. Header and mobile nav 6. Counters and skill bars
    3. Rotating hero roles   7. Portfolio filter
-   4. GSAP reveals          8. Contact form (FormSubmit delivery, mailto fallback)
+   4. GSAP reveals          8. Contact form (Web3Forms delivery, mailto fallback)
    Everything degrades gracefully: with no GSAP or reduced motion the
    page is fully visible and usable.
    ========================================================================== */
@@ -318,6 +318,7 @@
         b.classList.toggle("active", b === button);
       });
       var filter = button.getAttribute("data-filter");
+      clearTechFilter();
       document.querySelectorAll(".work-card").forEach(function (card) {
         var show =
           filter === "all" || card.getAttribute("data-category") === filter;
@@ -329,7 +330,145 @@
     });
   }
 
-  /* 8. Contact form: validates, then opens the visitor's email app ----------------------------- */
+  /* 7b. Tech chips filter the Work grid, and case study modal ---------------- */
+  var techFilterBar = document.getElementById("work-tech-filter");
+  function clearTechFilter() {
+    if (techFilterBar) {
+      techFilterBar.hidden = true;
+      techFilterBar.innerHTML = "";
+    }
+    document.querySelectorAll(".tech-chip.chip-active").forEach(function (c) {
+      c.classList.remove("chip-active");
+    });
+  }
+  function cardHasTech(card, tech) {
+    return (card.getAttribute("data-tech") || "").split("|").indexOf(tech) !== -1;
+  }
+  function applyTechFilter(chip) {
+    var tech = chip.textContent.trim().toLowerCase();
+    clearTechFilter();
+    chip.classList.add("chip-active");
+    document.querySelectorAll(".work-card").forEach(function (card) {
+      card.classList.toggle("hide", !cardHasTech(card, tech));
+    });
+    if (filterBar) {
+      filterBar.querySelectorAll(".filter-btn").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-filter") === "all");
+      });
+    }
+    if (techFilterBar) {
+      techFilterBar.innerHTML =
+        "Showing projects built with <strong>" +
+        chip.textContent.trim() +
+        '</strong> <button type="button" class="tech-filter-clear" aria-label="Clear technology filter">&times; Show all</button>';
+      techFilterBar.hidden = false;
+      techFilterBar
+        .querySelector(".tech-filter-clear")
+        .addEventListener("click", function () {
+          clearTechFilter();
+          document.querySelectorAll(".work-card").forEach(function (card) {
+            card.classList.remove("hide");
+          });
+        });
+    }
+    var workSection = document.getElementById("work");
+    if (workSection) workSection.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+    if (hasGsap && !reducedMotion && typeof ScrollTrigger !== "undefined") {
+      ScrollTrigger.refresh();
+    }
+  }
+  /* Only chips that match at least one project become clickable */
+  document.querySelectorAll(".tech-chip").forEach(function (chip) {
+    var tech = chip.textContent.trim().toLowerCase();
+    var matches = 0;
+    document.querySelectorAll(".work-card").forEach(function (card) {
+      if (cardHasTech(card, tech)) matches++;
+    });
+    if (!matches) return;
+    chip.classList.add("chip-link");
+    chip.setAttribute("role", "button");
+    chip.setAttribute("tabindex", "0");
+    chip.setAttribute("title", "See projects built with " + chip.textContent.trim());
+    chip.addEventListener("click", function () {
+      applyTechFilter(chip);
+    });
+    chip.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        applyTechFilter(chip);
+      }
+    });
+  });
+
+  /* Case study modal */
+  var caseModal = document.getElementById("case-modal");
+  var caseContent = document.getElementById("case-content");
+  function closeCase() {
+    if (!caseModal) return;
+    caseModal.hidden = true;
+    caseModal.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  function openCase(index) {
+    var project = siteData.portfolio[index];
+    if (!project || !project.caseStudy || !caseModal || !caseContent) return;
+    var cs = project.caseStudy;
+    var built = cs.built
+      .map(function (item) {
+        return "<li>" + item + "</li>";
+      })
+      .join("");
+    var tags = project.technologies
+      .map(function (t) {
+        return '<span class="chip">' + t + "</span>";
+      })
+      .join("");
+    caseContent.innerHTML =
+      '<p class="modal-eyebrow">' +
+      project.categoryLabel +
+      " · Case Study</p>" +
+      '<h3 class="modal-title" id="case-title">' +
+      project.name +
+      "</h3>" +
+      '<h4 class="case-h">The problem</h4><p class="case-p">' +
+      cs.problem +
+      "</p>" +
+      '<h4 class="case-h">What I built</h4><ul class="case-list">' +
+      built +
+      "</ul>" +
+      '<h4 class="case-h">The result</h4><p class="case-p">' +
+      cs.outcome +
+      "</p>" +
+      '<div class="work-tags">' +
+      tags +
+      "</div>" +
+      '<a class="btn btn-primary modal-visit" href="' +
+      project.url +
+      '" target="_blank" rel="noopener noreferrer">Visit the live product</a>';
+    caseModal.hidden = false;
+    requestAnimationFrame(function () {
+      caseModal.classList.add("open");
+    });
+    document.body.style.overflow = "hidden";
+    var closeBtn = document.getElementById("case-close");
+    if (closeBtn) closeBtn.focus();
+  }
+  document.addEventListener("click", function (event) {
+    var btn = event.target.closest(".case-btn");
+    if (btn) openCase(parseInt(btn.getAttribute("data-case-index"), 10));
+  });
+  if (caseModal) {
+    caseModal.addEventListener("click", function (event) {
+      if (event.target === caseModal) closeCase();
+    });
+    var caseCloseBtn = document.getElementById("case-close");
+    if (caseCloseBtn) caseCloseBtn.addEventListener("click", closeCase);
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !caseModal.hidden) closeCase();
+    });
+  }
+
+  /* 8. Contact form: validates, delivers via Web3Forms, mailto fallback ------ */
   var form = document.getElementById("contact-form");
   var status = document.getElementById("form-status");
   function setStatus(message, kind) {

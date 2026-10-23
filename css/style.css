@@ -581,6 +581,96 @@ html[data-theme="light"] .theme-toggle { color: #8a680c; }
 .work-link:hover svg { transform: translate(2px, -2px); }
 .work-link:hover { text-decoration: underline; }
 
+/* 8b. How I work (process) ------------------------------------------------------------ */
+.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.3rem; }
+.process-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.6rem 1.5rem;
+  display: grid; gap: 0.7rem; align-content: start;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.process-card:hover { transform: translateY(-5px); border-color: rgba(212, 175, 55, 0.32); }
+.process-num {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 1rem; color: #131313;
+  background: linear-gradient(120deg, var(--gold-2), var(--gold));
+}
+.process-card h3 { font-size: 1.05rem; }
+.process-card p { color: var(--muted); font-size: 0.92rem; }
+@media (max-width: 1020px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .process-grid { grid-template-columns: 1fr; } }
+
+/* Case study button on work cards + modal */
+.work-actions { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; align-items: center; }
+.case-btn {
+  font: inherit; font-weight: 700; font-size: 0.92rem; cursor: pointer;
+  background: none; border: none; padding: 0; color: var(--gold-2);
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.case-btn svg { width: 15px; height: 15px; }
+.case-btn:hover { text-decoration: underline; }
+html[data-theme="light"] .case-btn { color: #8a680c; }
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(3, 4, 8, 0.72); backdrop-filter: blur(6px);
+  display: grid; place-items: center; padding: 1.2rem;
+  opacity: 0; transition: opacity 0.25s ease;
+}
+.modal-overlay.open { opacity: 1; }
+.modal-overlay[hidden] { display: none; }
+.modal-panel {
+  position: relative; width: min(680px, 100%); max-height: 86vh; overflow-y: auto;
+  background: var(--bg-2); border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 20px; padding: 2.2rem 2.2rem 2rem;
+  transform: translateY(14px); transition: transform 0.25s ease;
+}
+.modal-overlay.open .modal-panel { transform: none; }
+.modal-close {
+  position: absolute; top: 0.9rem; right: 1rem;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text); font-size: 1.3rem; line-height: 1; cursor: pointer;
+}
+.modal-close:hover { border-color: rgba(212, 175, 55, 0.4); color: var(--gold-2); }
+.modal-eyebrow {
+  font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold-2);
+}
+html[data-theme="light"] .modal-eyebrow { color: #8a680c; }
+.modal-title { font-size: 1.45rem; margin: 0.5rem 0 0.4rem; padding-right: 2rem; }
+.case-h { font-size: 0.95rem; margin: 1.3rem 0 0.45rem; color: var(--gold-2); }
+html[data-theme="light"] .case-h { color: #8a680c; }
+.case-p { color: var(--muted); font-size: 0.95rem; }
+.case-list { list-style: none; display: grid; gap: 0.5rem; }
+.case-list li {
+  color: var(--muted); font-size: 0.94rem; padding-left: 1.35rem; position: relative;
+}
+.case-list li::before {
+  content: ""; position: absolute; left: 0; top: 0.52em;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
+}
+.modal-panel .work-tags { margin-top: 1.4rem; }
+.modal-visit { margin-top: 1.5rem; }
+@media (max-width: 540px) { .modal-panel { padding: 1.6rem 1.3rem 1.5rem; } }
+
+/* Clickable tech chips + active filter note */
+.tech-chip.chip-link { cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
+.tech-chip.chip-link:hover { border-color: rgba(212, 175, 55, 0.45); color: var(--gold-2); }
+.tech-chip.chip-active {
+  background: linear-gradient(120deg, var(--gold-2), var(--gold));
+  color: #131313; border-color: transparent; font-weight: 700;
+}
+.work-tech-filter { margin: 0 0 1.2rem; color: var(--muted); font-size: 0.92rem; }
+.work-tech-filter strong { color: var(--text); }
+.tech-filter-clear {
+  font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+  margin-left: 0.7rem; padding: 0.3rem 0.8rem; border-radius: 99px;
+  background: var(--surface); border: 1px solid var(--border); color: var(--gold-2);
+}
+.tech-filter-clear:hover { border-color: rgba(212, 175, 55, 0.45); }
+html[data-theme="light"] .tech-filter-clear { color: #8a680c; }
+
 /* 9b. Testimonials ------------------------------------------------------------------ */
 .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; }
 .testimonial-card {

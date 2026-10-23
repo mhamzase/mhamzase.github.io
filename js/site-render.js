@@ -297,9 +297,29 @@
       .join("");
   }
 
+  /* How I work: numbered process steps */
+  function renderProcess() {
+    if (!el("process-container") || !siteData.process) return;
+    el("process-container").innerHTML = siteData.process
+      .map(function (step, i) {
+        return (
+          '<article class="process-card reveal">' +
+          '<span class="process-num" aria-hidden="true">' +
+          (i + 1) +
+          "</span>" +
+          "<h3>" +
+          step.title +
+          "</h3><p>" +
+          step.text +
+          "</p></article>"
+        );
+      })
+      .join("");
+  }
+
   function renderPortfolio() {
     el("portfolio-container").innerHTML = siteData.portfolio
-      .map(function (project) {
+      .map(function (project, projectIndex) {
         var features = project.features
           .slice(0, 3)
           .map(function (f) {
@@ -332,9 +352,23 @@
             '<span class="work-mono" aria-hidden="true">' +
             monogram(project.shortName) +
             "</span></div>";
+        var caseBtn = project.caseStudy
+          ? '<button type="button" class="case-btn" data-case-index="' +
+            projectIndex +
+            '">Read the case study ' +
+            icon("arrow") +
+            "</button>"
+          : "";
+        var techAttr = project.technologies
+          .map(function (t) {
+            return t.toLowerCase();
+          })
+          .join("|");
         return (
           '<article class="work-card reveal" data-category="' +
           project.category +
+          '" data-tech="' +
+          techAttr +
           '">' +
           visual +
           '<div class="work-body"><h3>' +
@@ -348,11 +382,13 @@
           '</ul><div class="work-tags">' +
           tags +
           "</div>" +
-          '<a class="work-link" href="' +
+          '<div class="work-actions"><a class="work-link" href="' +
           project.url +
           '" target="_blank" rel="noopener noreferrer">Visit live site ' +
           icon("arrow") +
-          "</a></div></article>"
+          "</a>" +
+          caseBtn +
+          "</div></div></article>"
         );
       })
       .join("");
@@ -475,6 +511,7 @@
   renderSkills();
   renderCertifications();
   renderTechStack();
+  renderProcess();
   renderPortfolio();
   renderTestimonials();
   renderContact();
