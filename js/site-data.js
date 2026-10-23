@@ -61,14 +61,14 @@ const siteData = {
     heading:
       'I am <span class="text-gradient">Hamza Shabbir</span>, a Principal Engineer and Team Lead.',
     paragraphs: [
-      "I have 6+ years of hands-on experience in full-stack development. I turn business problems into clean, scalable digital solutions, and I stay involved through the whole journey: understanding the requirements, designing the system, building it, launching it, and improving it over time.",
+      "I have 7+ years of hands-on experience in full-stack development. I turn business problems into clean, scalable digital solutions, and I stay involved through the whole journey: understanding the requirements, designing the system, building it, launching it, and improving it over time.",
       "I work across the full stack and pick the right tools for each project. Along the way I have led development teams, mentored junior developers, and delivered more than 72 projects for clients in different industries, from startups to established businesses.",
       "My way of working is simple: write clean code, keep the user at the centre, and care about performance. Whether it is a small MVP to test an idea or a full-scale application, I bring both the technical depth and the practical thinking to get it done.",
     ],
   },
 
   stats: [
-    { label: "Years of Experience", value: 6, suffix: "+" },
+    { label: "Years of Experience", value: 7, suffix: "+" },
     { label: "Projects Delivered", value: 72, suffix: "+" },
     { label: "Happy Clients", value: 26, suffix: "+" },
     { label: "Industry Awards", value: 4, suffix: "" },
@@ -183,18 +183,34 @@ const siteData = {
 
   experience: [
     {
-      date: "Jun 2022 to Present",
-      title: "Senior Full-Stack Engineer",
-      company: "Karigar Web Solutions",
+      date: "Nov 2025 to Present",
+      title: "Senior Software Engineer & Tech Lead",
+      company: "Self Employed · Lahore, Hybrid",
       detail:
-        "Leading development of enterprise web applications, managing a team of 5 developers, and driving technical architecture decisions.",
+        "Working as a Senior Software Engineer and Tech Lead, leading engineering teams and delivering scalable digital solutions for clients across various industries.",
       highlights: [
-        "Led the move from a legacy system to microservices, improving performance by 40%",
-        "Mentored 5 junior developers through code reviews and knowledge-sharing sessions",
-        "Set up a CI/CD pipeline that cut deployment time from 2 hours to 15 minutes",
-        "Built 15+ client projects using Laravel, React.js, and AWS",
+        "Focus on full-stack development, AI-driven automation, and system architecture",
+        "Helping businesses modernize their workflows and reduce operational costs",
+        "Building products that grow with the business",
       ],
-      techStack: ["Laravel", "React.js", "AWS", "MySQL", "Redis", "Docker"],
+      techStack: [
+        "Full-Stack Development",
+        "AI Automation",
+        "System Architecture",
+        "Team Leadership",
+      ],
+    },
+    {
+      date: "Jun 2023 to Oct 2025",
+      title: "Senior Software Engineer",
+      company: "ByteCrew · Full-time · Lahore, On-site",
+      detail:
+        "Experienced in RESTful APIs and full-stack development with Laravel, Vue.js, and Python.",
+      highlights: [
+        "RESTful API and full-stack development with Laravel, Vue.js, and Python",
+        "Integrated third-party services to enhance functionality, scalability, and performance",
+      ],
+      techStack: ["Laravel", "Vue.js", "Python", "REST APIs"],
     },
     {
       date: "May 2021 to Apr 2022",
