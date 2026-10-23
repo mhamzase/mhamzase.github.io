@@ -378,21 +378,32 @@
       }
 
       /* Primary delivery: FormSubmit AJAX sends the message straight to
-         Hamza's inbox. If that fails (service down, not yet activated),
-         fall back to opening the visitor's email app with the message
-         ready, so a message is never lost. */
+         Hamza's inbox. The free endpoint can be very slow, so the request
+         is aborted after 12 seconds (AbortController) and the mailto
+         fallback takes over: the form can never sit on "Sending..."
+         forever and a message is never lost. */
+      var controller =
+        "AbortController" in window ? new AbortController() : null;
+      var abortTimer = controller
+        ? setTimeout(function () {
+            controller.abort();
+          }, 12000)
+        : null;
       fetch("https://formsubmit.co/ajax/mhamzasulehri143@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
+        signal: controller ? controller.signal : undefined,
         body: JSON.stringify({
           name: name,
           email: email,
           _subject: finalSubject,
           message: message,
           _template: "table",
+          _captcha: "false",
         }),
       })
         .then(function (response) {
+          if (abortTimer) clearTimeout(abortTimer);
           if (!response.ok) throw new Error("delivery failed");
           return response.json();
         })
@@ -410,6 +421,7 @@
           );
         })
         .catch(function () {
+          if (abortTimer) clearTimeout(abortTimer);
           restoreButton();
           var body =
             "Name: " + name + "\nEmail: " + email + "\n\n" + message;
@@ -419,7 +431,7 @@
             "&body=" +
             encodeURIComponent(body);
           setStatus(
-            "Your email app should open now with the message ready. Just press send there.",
+            "Direct delivery is slow right now, so your email app is opening with the message ready instead. Just press send there.",
             "ok"
           );
         });
