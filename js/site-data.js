@@ -568,6 +568,26 @@ const siteData = {
       image: "images/projects/dev-toolkit.webp",
     },
     {
+      name: "Maria Consultancy London: Education Consultancy Website",
+      shortName: "Maria Consultancy",
+      category: "website",
+      categoryLabel: "Consultancy Website",
+      hue: 355,
+      role: "Web Developer",
+      description:
+        "The website for a London based education consultancy that has been guiding students into top universities worldwide for more than a decade, with all of its services free for students.",
+      features: [
+        "Admission guidance and application support presented as clear, friendly services",
+        "Study destinations showcase covering the UK, USA, Canada, Australia, and Europe",
+        "Premium partner universities section with student inquiry and contact flows",
+        "Built on WordPress with Elementor, so their own team can update content easily",
+      ],
+      technologies: ["WordPress", "Elementor", "PHP", "CSS3"],
+      url: "https://mariaconsultancy.com/",
+      urlText: "mariaconsultancy.com",
+      image: "images/projects/maria-consultancy.webp",
+    },
+    {
       name: "Social Aviation: Digital Agency Website",
       shortName: "Social Aviation",
       category: "website",
