@@ -529,6 +529,25 @@ const siteData = {
       },
     },
     {
+      name: "Offic\u00e9 Makeup: Cosmetics E-Commerce Store",
+      shortName: "Offic\u00e9 Makeup",
+      category: "website",
+      categoryLabel: "E-Commerce Store",
+      hue: 335,
+      role: "Full-Stack Developer",
+      description:
+        "The online store for the Offic\u00e9 Makeup cosmetics brand, serving customers across Lebanon. I built and managed the whole store end to end: storefront, catalog, and deployment.",
+      features: [
+        "Complete Shopify store: collections, product pages, cart, and checkout",
+        "Makeup catalog across foundations, lipsticks, brushes, eye lenses, and more",
+        "Free delivery across Lebanon on orders over $50, plus member rewards and early access offers",
+      ],
+      technologies: ["Shopify", "Liquid", "JavaScript", "CSS3"],
+      url: "https://officemakeups.com",
+      urlText: "officemakeups.com",
+      image: "images/projects/office-makeups.webp",
+    },
+    {
       name: "Social Aviation: Digital Agency Website",
       shortName: "Social Aviation",
       category: "website",
