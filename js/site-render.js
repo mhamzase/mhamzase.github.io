@@ -11,6 +11,11 @@
   /* Inline SVG icon set (24x24, stroke style unless noted) */
   var ICONS = {
     code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6-6 6 6 6M16 6l6 6-6 6"/></svg>',
+    layers:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 4.9-9 4.9-9-4.9L12 2Z"/><path d="m3 11.9 9 4.9 9-4.9"/><path d="m3 16.9 9 4.9 9-4.9"/></svg>',
+    star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.95 5.98 6.6.96-4.78 4.66 1.13 6.58L12 17.57l-5.9 3.1 1.13-6.57L2.45 9.44l6.6-.96L12 2.5z"/></svg>',
+    quote:
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 8c-3 .6-5 3-5 6.3 0 2 1.4 3.7 3.4 3.7S12 16.4 12 14.3c0-2-1.3-3.4-3.1-3.4-.3 0-.7 0-.9.1.3-1.2 1.2-2.1 2.4-2.5L10 8zm9 0c-3 .6-5 3-5 6.3 0 2 1.4 3.7 3.4 3.7S21 16.4 21 14.3c0-2-1.3-3.4-3.1-3.4-.3 0-.7 0-.9.1.3-1.2 1.2-2.1 2.4-2.5L19 8z" transform="translate(-2 0)"/></svg>',
     layout:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>',
     server:
@@ -138,7 +143,12 @@
           })
           .join("");
         return (
-          '<article class="service-card reveal">' +
+          '<article class="service-card reveal' +
+          (service.featured ? " featured" : "") +
+          '">' +
+          (service.featured
+            ? '<span class="service-flag">My specialty</span>'
+            : "") +
           '<div class="service-icon">' +
           icon(service.icon) +
           "</div>" +
@@ -348,6 +358,59 @@
       .join("");
   }
 
+  /* Testimonials: the whole section is removed when there are no real reviews */
+  function renderTestimonials() {
+    var section = el("testimonials");
+    var list = siteData.testimonials || [];
+    if (!section) return;
+    if (!list.length) {
+      section.remove();
+      return;
+    }
+    el("testimonials-container").innerHTML = list
+      .map(function (item) {
+        var stars = "";
+        for (var i = 0; i < (item.rating || 5); i++) stars += icon("star");
+        var initials = item.name
+          .split(" ")
+          .filter(Boolean)
+          .slice(0, 2)
+          .map(function (w) {
+            return w.charAt(0).toUpperCase();
+          })
+          .join("");
+        return (
+          '<figure class="testimonial-card reveal">' +
+          '<span class="testimonial-quote">' +
+          icon("quote") +
+          "</span>" +
+          '<span class="testimonial-stars" aria-label="' +
+          (item.rating || 5) +
+          ' out of 5 stars">' +
+          stars +
+          "</span>" +
+          "<blockquote>" +
+          item.text +
+          "</blockquote>" +
+          "<figcaption>" +
+          '<span class="testimonial-avatar" aria-hidden="true">' +
+          initials +
+          "</span>" +
+          "<span>" +
+          '<span class="testimonial-name">' +
+          item.name +
+          "</span>" +
+          '<span class="testimonial-role">' +
+          item.role +
+          "</span>" +
+          "</span>" +
+          "</figcaption>" +
+          "</figure>"
+        );
+      })
+      .join("");
+  }
+
   /* Contact and footer ------------------------------------------------------------------ */
   function contactRow(iconName, innerHTML) {
     return (
@@ -413,6 +476,7 @@
   renderCertifications();
   renderTechStack();
   renderPortfolio();
+  renderTestimonials();
   renderContact();
   renderFooterAndCv();
 })();

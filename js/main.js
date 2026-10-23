@@ -3,7 +3,7 @@
    1. Preloader            5. Light 3D tilt (desktop, pointer only)
    2. Header and mobile nav 6. Counters and skill bars
    3. Rotating hero roles   7. Portfolio filter
-   4. GSAP reveals          8. Contact form (mailto composer) and floats
+   4. GSAP reveals          8. Contact form (FormSubmit delivery, mailto fallback)
    Everything degrades gracefully: with no GSAP or reduced motion the
    page is fully visible and usable.
    ========================================================================== */
@@ -346,19 +346,64 @@
         return;
       }
 
-      var finalSubject =
-        subject || "New project inquiry from " + name;
-      var body =
-        "Name: " + name + "\nEmail: " + email + "\n\n" + message;
-      window.location.href =
-        "mailto:mhamzasulehri143@gmail.com?subject=" +
-        encodeURIComponent(finalSubject) +
-        "&body=" +
-        encodeURIComponent(body);
-      setStatus(
-        "Your email app should open now with the message ready. Just press send there.",
-        "ok"
-      );
+      var finalSubject = subject || "New project inquiry from " + name;
+      var submitBtn = document.getElementById("submit-btn");
+      var originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+      setStatus("", "");
+
+      function restoreButton() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+
+      /* Primary delivery: FormSubmit AJAX sends the message straight to
+         Hamza's inbox. If that fails (service down, not yet activated),
+         fall back to opening the visitor's email app with the message
+         ready, so a message is never lost. */
+      fetch("https://formsubmit.co/ajax/mhamzasulehri143@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          _subject: finalSubject,
+          message: message,
+          _template: "table",
+        }),
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error("delivery failed");
+          return response.json();
+        })
+        .then(function (data) {
+          /* FormSubmit answers 200 with success:"false" when the form is
+             not activated yet. That is not a delivery: use the fallback. */
+          if (!data || String(data.success) !== "true") {
+            throw new Error("not delivered");
+          }
+          restoreButton();
+          form.reset();
+          setStatus(
+            "Message sent. Thank you, I will get back to you very soon.",
+            "ok"
+          );
+        })
+        .catch(function () {
+          restoreButton();
+          var body =
+            "Name: " + name + "\nEmail: " + email + "\n\n" + message;
+          window.location.href =
+            "mailto:mhamzasulehri143@gmail.com?subject=" +
+            encodeURIComponent(finalSubject) +
+            "&body=" +
+            encodeURIComponent(body);
+          setStatus(
+            "Your email app should open now with the message ready. Just press send there.",
+            "ok"
+          );
+        });
     });
   }
 })();

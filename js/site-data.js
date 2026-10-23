@@ -76,6 +76,21 @@ const siteData = {
 
   services: [
     {
+      icon: "layers",
+      title: "SaaS Product Development",
+      featured: true,
+      description:
+        "Have an idea for a software product that businesses will pay for? I plan and build complete SaaS products, the way I built the AK Tailor App: every customer gets their own separate workspace, subscriptions run themselves, and the unglamorous parts, like backups, roles, and security, are done properly from day one.",
+      bullets: [
+        "Multi-tenant architecture: every customer's data fully separate",
+        "Subscription plans, free trials, and billing",
+        "Admin panel and customer dashboards",
+        "Roles and permissions for teams",
+        "Automated backups and restore",
+        "Built on Laravel, ready to grow with your customers",
+      ],
+    },
+    {
       icon: "code",
       title: "Full-Stack Development",
       description:
@@ -131,13 +146,13 @@ const siteData = {
       icon: "plug",
       title: "API Integration and Automation",
       description:
-        "I connect the tools your business already uses and automate the repetitive work, so your team spends time on the work that matters.",
+        "I connect the tools your business already uses and automate the repetitive work, including AI features where they genuinely help, like chatbots that answer customers and systems that sort inquiries on their own. Your team spends time on the work that matters.",
       bullets: [
+        "AI chatbots and AI powered automation (OpenAI, Google APIs)",
         "Third-party API integration",
         "Webhooks and scheduled jobs",
         "Payment gateway integration",
         "CRM and ERP integrations",
-        "AI powered automation (OpenAI, Google APIs)",
       ],
     },
     {
@@ -485,6 +500,12 @@ const siteData = {
       urlText: "socialaviation.uk",
     },
   ],
+
+  /* Real client reviews only, never invented. The section stays hidden
+     while this list is empty. Entry format:
+     { name: "Client Name", role: "Role, Company", rating: 5,
+       text: "What the client said, in their own words." } */
+  testimonials: [],
 
   contact: {
     addressLines: ["Sulehri Town, Ward #5 Zafarwal"],
