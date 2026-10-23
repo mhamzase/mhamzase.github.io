@@ -548,6 +548,26 @@ const siteData = {
       image: "images/projects/office-makeups.webp",
     },
     {
+      name: "Developer Toolkit: JSON, JWT, Regex and More",
+      shortName: "Developer Toolkit",
+      category: "platform",
+      categoryLabel: "Chrome Extension",
+      hue: 252,
+      role: "Creator and Developer",
+      description:
+        "A Chrome extension I built for the small developer tasks you do every day, so you can stop pasting private code and tokens into random utility websites. It is published on the Chrome Web Store under my HS TECH SOL name.",
+      features: [
+        "16 tools in one place: JSON formatter, JWT decoder, regex tester, diff checker, Base64, hash and password generators, cron parser, and more",
+        "100% private: everything runs locally in the browser, with no backend, no tracking, and no data collection",
+        "Opens in a resizable, app-like window with favorites, recently used tools, and a keyboard command palette (Ctrl+K)",
+        "Light and dark mode, rated 5.0 on the Chrome Web Store",
+      ],
+      technologies: ["JavaScript", "Chrome Extensions API", "HTML5", "CSS3"],
+      url: "https://chromewebstore.google.com/detail/developer-toolkit-json-jw/fhjlhcecanniahjgnjffdhmfkfikkkdg",
+      urlText: "Chrome Web Store",
+      image: "images/projects/dev-toolkit.webp",
+    },
+    {
       name: "Social Aviation: Digital Agency Website",
       shortName: "Social Aviation",
       category: "website",
