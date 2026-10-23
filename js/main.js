@@ -308,7 +308,32 @@
     }
   });
 
-  /* 7. Portfolio filter --------------------------------------------------------------------- */
+  /* 7. Portfolio filter + Load more: 9 cards first, then +3 per click.
+     The category filter and the counter share one refresh function. */
+  var WORK_PAGE = 9;
+  var WORK_STEP = 3;
+  var currentFilter = "all";
+  var visibleCount = WORK_PAGE;
+  var loadMoreBtn = document.getElementById("work-load-more");
+  function refreshWork() {
+    var matched = [];
+    document.querySelectorAll(".work-card").forEach(function (card) {
+      var isMatch =
+        currentFilter === "all" ||
+        card.getAttribute("data-category") === currentFilter;
+      if (isMatch) matched.push(card);
+      card.classList.add("hide");
+    });
+    matched.forEach(function (card, i) {
+      if (i < visibleCount) card.classList.remove("hide");
+    });
+    if (loadMoreBtn) {
+      loadMoreBtn.hidden = matched.length <= visibleCount;
+    }
+    if (hasGsap && !reducedMotion && typeof ScrollTrigger !== "undefined") {
+      ScrollTrigger.refresh();
+    }
+  }
   var filterBar = document.getElementById("portfolio-filters");
   if (filterBar) {
     filterBar.addEventListener("click", function (event) {
@@ -317,17 +342,18 @@
       filterBar.querySelectorAll(".filter-btn").forEach(function (b) {
         b.classList.toggle("active", b === button);
       });
-      var filter = button.getAttribute("data-filter");
-      document.querySelectorAll(".work-card").forEach(function (card) {
-        var show =
-          filter === "all" || card.getAttribute("data-category") === filter;
-        card.classList.toggle("hide", !show);
-      });
-      if (hasGsap && !reducedMotion && typeof ScrollTrigger !== "undefined") {
-        ScrollTrigger.refresh();
-      }
+      currentFilter = button.getAttribute("data-filter");
+      visibleCount = WORK_PAGE;
+      refreshWork();
     });
   }
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", function () {
+      visibleCount += WORK_STEP;
+      refreshWork();
+    });
+  }
+  refreshWork();
 
   /* 7b. Project details modal: full story for every project. The three
      flagship products also carry their case study inside it. */

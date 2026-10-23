@@ -519,6 +519,11 @@ html[data-theme="light"] .theme-toggle { color: #8a680c; }
   color: var(--gold-dark); border-color: transparent;
 }
 .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+.work-more-wrap { text-align: center; margin-top: 2.2rem; }
+.btn-load-more .load-more-plus {
+  color: var(--gold-2); font-weight: 800; margin-left: 0.35rem;
+}
+html[data-theme="light"] .btn-load-more .load-more-plus { color: #8a680c; }
 @media (max-width: 1120px) {
   .work-grid { grid-template-columns: repeat(2, 1fr); }
 }
