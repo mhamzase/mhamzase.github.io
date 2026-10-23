@@ -320,17 +320,20 @@
   function renderPortfolio() {
     el("portfolio-container").innerHTML = siteData.portfolio
       .map(function (project, projectIndex) {
-        var features = project.features
-          .slice(0, 3)
-          .map(function (f) {
-            return "<li>" + icon("check") + "<span>" + f + "</span></li>";
-          })
-          .join("");
+        /* Compact card: at most 4 tech tags, the rest collapse into +N.
+           Full features and description live in the details modal. */
         var tags = project.technologies
+          .slice(0, 4)
           .map(function (t) {
             return '<span class="chip">' + t + "</span>";
           })
           .join("");
+        if (project.technologies.length > 4) {
+          tags +=
+            '<span class="chip chip-more">+' +
+            (project.technologies.length - 4) +
+            " more</span>";
+        }
         var visual = project.image
           ? '<div class="work-visual has-shot" style="--hue:' +
             project.hue +
@@ -352,13 +355,12 @@
             '<span class="work-mono" aria-hidden="true">' +
             monogram(project.shortName) +
             "</span></div>";
-        var caseBtn = project.caseStudy
-          ? '<button type="button" class="case-btn" data-case-index="' +
-            projectIndex +
-            '">Read the case study ' +
-            icon("arrow") +
-            "</button>"
-          : "";
+        var caseBtn =
+          '<button type="button" class="details-btn" data-project-index="' +
+          projectIndex +
+          '">View details ' +
+          icon("arrow") +
+          "</button>";
         var techAttr = project.technologies
           .map(function (t) {
             return t.toLowerCase();
@@ -377,9 +379,7 @@
           project.role +
           '</p><p class="work-desc">' +
           project.description +
-          '</p><ul class="work-features">' +
-          features +
-          '</ul><div class="work-tags">' +
+          '</p><div class="work-tags">' +
           tags +
           "</div>" +
           '<div class="work-actions"><a class="work-link" href="' +

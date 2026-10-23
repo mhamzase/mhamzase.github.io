@@ -329,7 +329,8 @@
     });
   }
 
-  /* 7b. Case study modal --------------------------------------------------- */
+  /* 7b. Project details modal: full story for every project. The three
+     flagship products also carry their case study inside it. */
   var caseModal = document.getElementById("case-modal");
   var caseContent = document.getElementById("case-content");
   function closeCase() {
@@ -338,13 +339,12 @@
     caseModal.classList.remove("open");
     document.body.style.overflow = "";
   }
-  function openCase(index) {
+  function openProject(index) {
     var project = siteData.portfolio[index];
-    if (!project || !project.caseStudy || !caseModal || !caseContent) return;
-    var cs = project.caseStudy;
-    var built = cs.built
-      .map(function (item) {
-        return "<li>" + item + "</li>";
+    if (!project || !caseModal || !caseContent) return;
+    var features = project.features
+      .map(function (f) {
+        return "<li>" + f + "</li>";
       })
       .join("");
     var tags = project.technologies
@@ -352,40 +352,76 @@
         return '<span class="chip">' + t + "</span>";
       })
       .join("");
+    var shot = project.image
+      ? '<img class="modal-shot" src="' +
+        project.image +
+        '" alt="Screenshot of ' +
+        project.name +
+        '" loading="lazy">'
+      : "";
+    var caseHtml = "";
+    if (project.caseStudy) {
+      var cs = project.caseStudy;
+      var built = cs.built
+        .map(function (item) {
+          return "<li>" + item + "</li>";
+        })
+        .join("");
+      caseHtml =
+        '<div class="case-divider"><p class="modal-eyebrow">Case Study</p></div>' +
+        '<h4 class="case-h">The problem</h4><p class="case-p">' +
+        cs.problem +
+        "</p>" +
+        '<h4 class="case-h">What I built</h4><ul class="case-list">' +
+        built +
+        "</ul>" +
+        '<h4 class="case-h">The result</h4><p class="case-p">' +
+        cs.outcome +
+        "</p>";
+    }
+    var visitLabel =
+      project.urlText && project.urlText.indexOf(".") === -1
+        ? "View on " + project.urlText
+        : "Visit the live product";
     caseContent.innerHTML =
       '<div class="modal-head"><p class="modal-eyebrow">' +
       project.categoryLabel +
-      " · Case Study</p>" +
-      '<h3 class="modal-title" id="case-title">' +
+      '</p><h3 class="modal-title" id="case-title">' +
       project.name +
-      "</h3></div>" +
-      '<div class="modal-body">' +
-      '<h4 class="case-h">The problem</h4><p class="case-p">' +
-      cs.problem +
-      "</p>" +
-      '<h4 class="case-h">What I built</h4><ul class="case-list">' +
-      built +
-      "</ul>" +
-      '<h4 class="case-h">The result</h4><p class="case-p">' +
-      cs.outcome +
+      '</h3><p class="modal-role">' +
+      project.role +
       "</p></div>" +
+      '<div class="modal-body">' +
+      shot +
+      '<p class="case-p modal-desc">' +
+      project.description +
+      "</p>" +
+      '<h4 class="case-h">Key features</h4><ul class="case-list">' +
+      features +
+      "</ul>" +
+      caseHtml +
+      "</div>" +
       '<div class="modal-foot"><div class="work-tags">' +
       tags +
       "</div>" +
       '<a class="btn btn-primary modal-visit" href="' +
       project.url +
-      '" target="_blank" rel="noopener noreferrer">Visit the live product</a></div>';
+      '" target="_blank" rel="noopener noreferrer">' +
+      visitLabel +
+      "</a></div>";
     caseModal.hidden = false;
     requestAnimationFrame(function () {
       caseModal.classList.add("open");
     });
     document.body.style.overflow = "hidden";
+    var body = caseContent.querySelector(".modal-body");
+    if (body) body.scrollTop = 0;
     var closeBtn = document.getElementById("case-close");
     if (closeBtn) closeBtn.focus();
   }
   document.addEventListener("click", function (event) {
-    var btn = event.target.closest(".case-btn");
-    if (btn) openCase(parseInt(btn.getAttribute("data-case-index"), 10));
+    var btn = event.target.closest(".details-btn");
+    if (btn) openProject(parseInt(btn.getAttribute("data-project-index"), 10));
   });
   if (caseModal) {
     caseModal.addEventListener("click", function (event) {
