@@ -1,596 +1,405 @@
 /* ==========================================================================
-   site-render.js – Version 2.0
-   Reads siteData and injects enhanced markup with richer layouts.
+   site-render.js: Portfolio v3
+   Reads siteData (js/site-data.js) and renders every section into the
+   matching containers in index.html. Icons are inline SVG, no icon font
+   and no CDN, so nothing external can break the page.
    ========================================================================== */
 
 (function () {
-  function socialListHTML(links, extraClasses) {
-    return links
+  "use strict";
+
+  /* Inline SVG icon set (24x24, stroke style unless noted) */
+  var ICONS = {
+    code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6-6 6 6 6M16 6l6 6-6 6"/></svg>',
+    layout:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>',
+    server:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><path d="M6 6.5h.01M6 17.5h.01"/></svg>',
+    cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>',
+    plug: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6M15 2v6M5 8h14v3a7 7 0 0 1-14 0V8ZM12 18v4"/></svg>',
+    pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>',
+    check:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+    arrow:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>',
+    award:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+    phone:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+    mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>',
+    clock:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+    whatsapp:
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.2L2 22l4.9-1.6A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 1 1-4.1 15.1l-.3-.18-3 .97 1-2.9-.19-.3A8.1 8.1 0 0 1 12.04 3.8Zm-3.1 3.9c-.16 0-.42.06-.64.31-.22.26-.86.84-.86 1.83 0 .99.72 1.94.82 2.08.1.13 1.4 2.3 3.5 3.13 1.75.69 2.1.55 2.49.46.39-.09 1.27-.52 1.45-1.02.18-.5.18-.93.13-1.02-.06-.08-.21-.14-.44-.25-.23-.12-.51-.26-.79-.4-.27-.13-.36-.22-.27-.45.09-.23.4-.53.54-.72.14-.19.19-.33.1-.55-.09-.22-.46-1.13-.62-1.47-.16-.34-.31-.35-.47-.35Z"/></svg>',
+    linkedin:
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>',
+    github:
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.49 1.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .3Z"/></svg>',
+    facebook:
+      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.49h-2.8V24C19.62 23.1 24 18.1 24 12.07Z"/></svg>',
+    instagram:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>',
+  };
+
+  function icon(name) {
+    return ICONS[name] || "";
+  }
+
+  function el(id) {
+    return document.getElementById(id);
+  }
+
+  function socialButtonsHTML() {
+    return siteData.socialLinks
       .map(function (s) {
         return (
-          '<li class="social-icons-' +
-          s.platform +
-          (extraClasses ? " " + extraClasses : "") +
-          '">' +
-          '<a data-bs-toggle="tooltip" title="' +
-          s.title +
-          '" data-bs-placement="top" href="' +
+          '<a class="social-btn" href="' +
           s.url +
-          '" target="_blank" rel="noopener noreferrer">' +
-          '<i class="' +
-          s.icon +
-          '"></i>' +
-          "</a>" +
-          "</li>"
+          '" target="_blank" rel="noopener noreferrer" aria-label="' +
+          s.title +
+          '" title="' +
+          s.title +
+          '">' +
+          icon(s.platform) +
+          "</a>"
         );
       })
       .join("");
   }
 
-  function renderHeader() {
-    var profileImg = document.getElementById("header-profile-img");
-    if (profileImg) {
-      profileImg.src = siteData.profile.profileImage;
-      profileImg.title = "I'm " + siteData.profile.name;
-      profileImg.alt = "Profile Picture of " + siteData.profile.name;
-    }
-
-    var nameEl = document.getElementById("header-name");
-    if (nameEl) nameEl.textContent = siteData.profile.name;
-
-    var headerSocial = document.getElementById("header-social-icons");
-    if (headerSocial)
-      headerSocial.innerHTML = socialListHTML(siteData.socialLinks, "");
-
-    // Add availability badge under name in sidebar
-    if (nameEl && siteData.profile.availability) {
-      var availabilityBadge = document.createElement("p");
-      availabilityBadge.className =
-        "text-success text-1 mt-1 mb-0 fw-500 text-center w-100";
-      availabilityBadge.innerHTML =
-        '<i class="fas fa-circle me-1" style="font-size: 0.4rem; vertical-align: middle;"></i>' +
-        siteData.profile.availability;
-      nameEl.insertAdjacentElement("afterend", availabilityBadge);
-    }
-  }
-
+  /* Hero ------------------------------------------------------------------ */
   function renderHero() {
-    var typedStrings = document.getElementById("typed-strings");
-    if (typedStrings) {
-      typedStrings.innerHTML = siteData.profile.typedStrings
-        .map(function (s) {
-          return "<p>" + s + "</p>";
-        })
-        .join("");
-    }
+    el("hero-availability").textContent = siteData.profile.availability;
+    el("hero-greeting").textContent = siteData.profile.greeting;
+    el("hero-tagline").textContent = siteData.profile.tagline;
+    el("profile-card-name").textContent = siteData.profile.fullName;
 
-    var greeting = document.getElementById("hero-greeting");
-    if (greeting) greeting.textContent = siteData.profile.greeting;
-
-    var tagline = document.getElementById("hero-tagline");
-    if (tagline) tagline.textContent = siteData.profile.tagline;
-
-    // Add scroll-down CTA text
-    var heroContent = document.querySelector(".hero-content .container");
-    if (heroContent) {
-      var ctaText = document.createElement("p");
-      ctaText.className = "text-white-50 text-3 mt-4 mb-0";
-      ctaText.innerHTML =
-        '<i class="fas fa-arrow-down me-2"></i>Scroll to explore my work';
-      heroContent.querySelector(".col-12").appendChild(ctaText);
-    }
-  }
-
-  function renderAbout() {
-    var heading = document.getElementById("about-heading");
-    if (heading) heading.innerHTML = siteData.about.heading;
-
-    var paragraphs = document.getElementById("about-paragraphs");
-    if (paragraphs) {
-      paragraphs.innerHTML = siteData.about.paragraphs
-        .map(function (p) {
-          if (p.startsWith("<span")) {
-            return p; // Already HTML
-          }
-          return '<p class="text-white-50">' + p + "</p>";
-        })
-        .join("");
-    }
-
-    var infoList = document.getElementById("about-info-list");
-    if (infoList) {
-      infoList.innerHTML =
-        '<li><span class="fw-600 me-2">Name:</span>' +
-        siteData.profile.fullName +
-        "</li>" +
-        '<li><span class="fw-600 me-2">Email:</span><a href="mailto:' +
-        siteData.profile.email +
-        '">' +
-        siteData.profile.email +
-        "</a></li>" +
-        '<li><span class="fw-600 me-2">Location:</span>' +
-        siteData.profile.location +
-        "</li>" +
-        '<li class="border-0"><span class="fw-600 me-2">Status:</span><span class="text-success">' +
-        siteData.profile.availability +
-        "</span></li>";
-    }
-
-    var resumeButtons = document.querySelectorAll(".js-download-cv");
-    resumeButtons.forEach(function (btn) {
-      btn.setAttribute("href", siteData.profile.resumeFile);
-      btn.setAttribute("download", "");
-      btn.removeAttribute("onclick");
-    });
-
-    var statsContainer = document.getElementById("stats-container");
-    if (statsContainer) {
-      statsContainer.innerHTML = siteData.stats
-        .map(function (stat) {
-          return (
-            '<div class="col-6 col-md-3">' +
-            '<div class="featured-box text-center">' +
-            '<h4 class="text-12 text-white-50 mb-0"><span class="counter" data-from="' +
-            stat.from +
-            '" data-to="' +
-            stat.to +
-            '">' +
-            stat.from +
-            "</span>" +
-            stat.suffix +
-            "</h4>" +
-            '<p class="text-light mb-0 text-1 text-uppercase fw-500">' +
-            stat.label +
-            "</p>" +
-            "</div>" +
-            "</div>"
-          );
-        })
-        .join("");
-    }
-  }
-
-  function renderServices() {
-    var container = document.getElementById("services-container");
-    if (!container) return;
-    container.innerHTML = siteData.services
-      .map(function (service) {
-        var bulletsHTML = service.bullets
-          ? '<ul class="text-white-50 mt-3 mb-0" style="list-style: none; padding-left: 0;">' +
-            service.bullets
-              .map(function (b) {
-                return (
-                  '<li class="mb-1"><i class="fas fa-check-circle text-primary me-2"></i>' +
-                  b +
-                  "</li>"
-                );
-              })
-              .join("") +
-            "</ul>"
-          : "";
+    el("stats-container").innerHTML = siteData.stats
+      .map(function (stat) {
         return (
-          '<div class="col-md-6">' +
-          '<div class="featured-box style-3 mb-5">' +
-          '<div class="featured-box-icon text-primary bg-dark-1 shadow-sm rounded"><i class="' +
-          service.icon +
-          '"></i></div>' +
-          '<h3 class="text-white">' +
+          '<div class="stat"><p class="stat-value"><span class="count" data-count="' +
+          stat.value +
+          '">0</span><span class="suffix">' +
+          stat.suffix +
+          '</span></p><p class="stat-label">' +
+          stat.label +
+          "</p></div>"
+        );
+      })
+      .join("");
+  }
+
+  /* Marquee (tech names, duplicated once for a seamless loop) ------------ */
+  function renderMarquee() {
+    var items = siteData.techStack
+      .map(function (t) {
+        return '<span class="marquee-item">' + t + "</span>";
+      })
+      .join("");
+    el("marquee-track").innerHTML = items + items;
+  }
+
+  /* About ------------------------------------------------------------------ */
+  function renderAbout() {
+    el("about-heading").innerHTML = siteData.about.heading;
+    el("about-paragraphs").innerHTML = siteData.about.paragraphs
+      .map(function (p) {
+        return "<p>" + p + "</p>";
+      })
+      .join("");
+
+    el("about-info-list").innerHTML =
+      '<li><span class="info-label">Name</span><span>' +
+      siteData.profile.fullName +
+      "</span></li>" +
+      '<li><span class="info-label">Email</span><a href="mailto:' +
+      siteData.profile.email +
+      '">' +
+      siteData.profile.email +
+      "</a></li>" +
+      '<li><span class="info-label">Location</span><span>' +
+      siteData.profile.location +
+      "</span></li>" +
+      '<li><span class="info-label">Status</span><span class="status-yes">' +
+      siteData.profile.availability +
+      "</span></li>";
+
+    el("about-social-icons").innerHTML = socialButtonsHTML();
+  }
+
+  /* Services ---------------------------------------------------------------- */
+  function renderServices() {
+    el("services-container").innerHTML = siteData.services
+      .map(function (service) {
+        var bullets = service.bullets
+          .map(function (b) {
+            return "<li>" + icon("check") + "<span>" + b + "</span></li>";
+          })
+          .join("");
+        return (
+          '<article class="service-card reveal">' +
+          '<div class="service-icon">' +
+          icon(service.icon) +
+          "</div>" +
+          "<h3>" +
           service.title +
           "</h3>" +
-          '<p class="text-white-50 mb-0 text-justify">' +
+          "<p>" +
           service.description +
           "</p>" +
-          bulletsHTML +
-          "</div>" +
-          "</div>"
+          '<ul class="service-list">' +
+          bullets +
+          "</ul>" +
+          "</article>"
         );
       })
       .join("");
   }
 
-  function renderEducation() {
-    var container = document.getElementById("education-container");
-    if (!container) return;
-
-    container.innerHTML = siteData.education
-      .map(function (item, index) {
-        var collapseId = "edu-collapse-" + index;
-        var achievementsHTML = item.achievements
-          ? '<ul class="text-white-50 mt-2 mb-0" style="list-style: none; padding-left: 0;">' +
-            item.achievements
-              .map(function (a) {
-                return (
-                  '<li class="mb-1"><i class="fas fa-star text-warning me-2" style="font-size: 0.7rem;"></i>' +
-                  a +
-                  "</li>"
-                );
-              })
-              .join("") +
-            "</ul>"
-          : "";
-
-        return (
-          '<div class="bg-dark rounded p-4 mb-4">' +
-          '<button class="btn btn-link text-decoration-none p-0 w-100 text-start d-flex justify-content-between align-items-start" type="button" data-bs-toggle="collapse" data-bs-target="#' +
-          collapseId +
-          '" aria-expanded="false" aria-controls="' +
-          collapseId +
-          '">' +
-          "<div>" +
-          '<p class="badge bg-danger text-2 fw-400 mb-2">' +
-          item.date +
-          "</p>" +
-          '<h3 class="text-5 text-white mb-1">' +
-          item.title +
-          "</h3>" +
-          '<p class="text-primary fw-500 mb-0">' +
-          item.institution +
-          "</p>" +
-          "</div>" +
-          '<i class="fas fa-chevron-down text-white ms-3 mt-2"></i>' +
-          "</button>" +
-          '<div id="' +
-          collapseId +
-          '" class="collapse">' +
-          (item.detail
-            ? '<p class="text-white-50 text-2 mt-3 mb-2">' +
-              item.detail +
-              "</p>"
-            : "") +
-          achievementsHTML +
-          "</div>" +
-          "</div>"
-        );
-      })
-      .join("");
-  }
-
-  function renderExperience() {
-    var container = document.getElementById("experience-container");
-    if (!container) return;
-
-    container.innerHTML = siteData.experience
-      .map(function (item, index) {
-        var collapseId = "exp-collapse-" + index;
-        var highlightsHTML = item.highlights
-          ? '<ul class="text-white-50 mt-2 mb-2" style="list-style: none; padding-left: 0;">' +
-            item.highlights
-              .map(function (h) {
-                return (
-                  '<li class="mb-1"><i class="fas fa-arrow-right text-primary me-2" style="font-size: 0.7rem;"></i>' +
-                  h +
-                  "</li>"
-                );
-              })
-              .join("") +
-            "</ul>"
-          : "";
-        var techHTML = item.techStack
-          ? '<div class="mt-2">' +
-            item.techStack
-              .map(function (t) {
-                return (
-                  '<span class="badge bg-dark-2 text-white-50 me-1 mb-1 px-2 py-1" style="font-size: 0.7rem;">' +
-                  t +
-                  "</span>"
-                );
-              })
-              .join("") +
-            "</div>"
-          : "";
-
-        return (
-          '<div class="bg-dark rounded p-4 mb-4">' +
-          '<button class="btn btn-link text-decoration-none p-0 w-100 text-start d-flex justify-content-between align-items-start" type="button" data-bs-toggle="collapse" data-bs-target="#' +
-          collapseId +
-          '" aria-expanded="false" aria-controls="' +
-          collapseId +
-          '">' +
-          "<div>" +
-          '<p class="badge bg-danger text-2 fw-400 mb-2">' +
-          item.date +
-          "</p>" +
-          '<h3 class="text-5 text-white mb-1">' +
-          item.title +
-          "</h3>" +
-          '<p class="text-primary fw-500 mb-0">' +
-          item.company +
-          "</p>" +
-          "</div>" +
-          '<i class="fas fa-chevron-down text-white ms-3 mt-2"></i>' +
-          "</button>" +
-          '<div id="' +
-          collapseId +
-          '" class="collapse">' +
-          (item.detail
-            ? '<p class="text-white-50 text-2 mt-3 mb-2">' +
-              item.detail +
-              "</p>"
-            : "") +
-          highlightsHTML +
-          techHTML +
-          "</div>" +
-          "</div>"
-        );
-      })
-      .join("");
-  }
-
-  function skillRowHTML(skill) {
-    return (
-      '<p class="text-light fw-500 text-start mb-2">' +
-      skill.name +
-      ' <span class="float-end">' +
-      skill.percent +
-      "%</span></p>" +
-      '<div class="progress progress-sm bg-dark mb-3">' +
-      '<div class="progress-bar" role="progressbar" style="width: ' +
-      skill.percent +
-      '%" aria-valuenow="' +
-      skill.percent +
-      '" aria-valuemin="0" aria-valuemax="100"></div>' +
-      "</div>"
-    );
-  }
-
-  function renderSkills() {
-    var col1 = document.getElementById("skills-column-1");
-    var col2 = document.getElementById("skills-column-2");
-    if (!col1 || !col2) return;
-
-    // Categorized skills
-    var categories = [
-      {
-        label: "Frontend Development",
-        skills: siteData.skills.frontend,
-        color: "text-primary",
-      },
-      {
-        label: "Backend Development",
-        skills: siteData.skills.backend,
-        color: "text-success",
-      },
-      {
-        label: "Database & DevOps",
-        skills: siteData.skills.databaseDevOps,
-        color: "text-warning",
-      },
-      {
-        label: "Design & Tools",
-        skills: siteData.skills.designTools,
-        color: "text-info",
-      },
-    ];
-
-    var mid = Math.ceil(categories.length / 2);
-    var col1Categories = categories.slice(0, mid);
-    var col2Categories = categories.slice(mid);
-
-    function categoryHTML(category) {
-      return (
-        '<h3 class="text-4 ' +
-        category.color +
-        ' fw-600 mt-3 mb-3"><i class="fas fa-code me-2"></i>' +
-        category.label +
-        "</h3>" +
-        category.skills.map(skillRowHTML).join("")
-      );
-    }
-
-    col1.innerHTML = col1Categories.map(categoryHTML).join("");
-    col2.innerHTML = col2Categories.map(categoryHTML).join("");
-  }
-
-  function portfolioItemHTML(item, index) {
-    var collapseId = "portfolio-collapse-" + index;
-    var featuresHTML = item.features
-      ? '<ul class="text-white-50 mt-2 mb-2" style="list-style: none; padding-left: 0;">' +
-        item.features
-          .map(function (f) {
-            return (
-              '<li class="mb-1"><i class="fas fa-check text-success me-2" style="font-size: 0.7rem;"></i>' +
-              f +
-              "</li>"
-            );
+  /* Resume: experience and education timelines ------------------------------ */
+  function timelineItemHTML(item, pointsKey, points) {
+    var pointsHTML = points
+      ? '<ul class="timeline-points">' +
+        points
+          .map(function (p) {
+            return "<li>" + icon("check") + "<span>" + p + "</span></li>";
           })
           .join("") +
         "</ul>"
       : "";
-
+    var tagsHTML = item.techStack
+      ? '<div class="timeline-tags">' +
+        item.techStack
+          .map(function (t) {
+            return '<span class="chip">' + t + "</span>";
+          })
+          .join("") +
+        "</div>"
+      : "";
     return (
-      '<div class="bg-dark rounded p-4 mb-4">' +
-      '<button class="btn btn-link text-decoration-none p-0 w-100 text-start d-flex justify-content-between align-items-start" type="button" data-bs-toggle="collapse" data-bs-target="#' +
-      collapseId +
-      '" aria-expanded="false" aria-controls="' +
-      collapseId +
-      '">' +
-      "<div>" +
-      '<span class="badge bg-primary text-1 fw-500 mb-2">Project ' +
-      (index + 1) +
+      '<div class="timeline-item reveal"><div class="timeline-card">' +
+      '<span class="timeline-date">' +
+      item.date +
       "</span>" +
-      '<h3 class="text-5 text-white fw-600 mb-1">' +
-      item.name +
-      "</h3>" +
-      '<p class="text-primary text-2 fw-500 mb-0"><i class="fas fa-user-tie me-2"></i>' +
-      item.role +
+      "<h4>" +
+      item.title +
+      "</h4>" +
+      '<p class="timeline-org">' +
+      (item.company || item.institution) +
       "</p>" +
-      "</div>" +
-      '<i class="fas fa-chevron-down text-white ms-3 mt-2"></i>' +
-      "</button>" +
-      '<div id="' +
-      collapseId +
-      '" class="collapse">' +
-      '<p class="text-white-50 mt-3 mb-2 text-justify">' +
-      item.description +
+      '<p class="timeline-detail">' +
+      item.detail +
       "</p>" +
-      featuresHTML +
-      '<ul class="list-style-2 list-style-light text-white-50 mt-3 mb-2">' +
-      '<li><span class="text-light fw-600 me-2">Technologies:</span>' +
-      item.technologies +
-      "</li>" +
-      '<li><span class="text-light fw-600 me-2">Live URL:</span><a href="' +
-      item.url +
-      '" target="_blank" rel="noopener noreferrer">' +
-      item.urlText +
-      "</a></li>" +
-      "</ul>" +
-      "</div>" +
-      "</div>"
+      pointsHTML +
+      tagsHTML +
+      "</div></div>"
     );
   }
 
-  function renderPortfolio() {
-    var col1 = document.getElementById("portfolio-column-1");
-    var col2 = document.getElementById("portfolio-column-2");
-    if (!col1 || !col2) return;
-
-    var splitIndex = Math.ceil(siteData.portfolio.length / 2);
-    var firstHalf = siteData.portfolio.slice(0, splitIndex);
-    var secondHalf = siteData.portfolio.slice(splitIndex);
-
-    col1.innerHTML = firstHalf
-      .map(function (item, i) {
-        return portfolioItemHTML(item, i);
+  function renderResume() {
+    el("experience-container").innerHTML = siteData.experience
+      .map(function (item) {
+        return timelineItemHTML(item, "highlights", item.highlights);
       })
       .join("");
-    col2.innerHTML = secondHalf
-      .map(function (item, i) {
-        return portfolioItemHTML(item, i + splitIndex);
+    el("education-container").innerHTML = siteData.education
+      .map(function (item) {
+        return timelineItemHTML(item, "achievements", item.achievements);
       })
       .join("");
   }
 
-  function renderCertifications() {
-    var container = document.getElementById("certifications-container");
-    if (!container) return;
-    container.innerHTML = siteData.certifications
-      .map(function (cert) {
+  /* Skills -------------------------------------------------------------------- */
+  function renderSkills() {
+    var groups = [
+      { label: "Frontend Development", skills: siteData.skills.frontend },
+      { label: "Backend Development", skills: siteData.skills.backend },
+      { label: "Database and DevOps", skills: siteData.skills.databaseDevOps },
+      { label: "Design and Tools", skills: siteData.skills.designTools },
+    ];
+    el("skills-container").innerHTML = groups
+      .map(function (group) {
+        var rows = group.skills
+          .map(function (skill) {
+            return (
+              '<div class="skill-row"><div class="skill-row-head">' +
+              '<span class="skill-name">' +
+              skill.name +
+              '</span><span class="skill-pct">' +
+              skill.percent +
+              '%</span></div><div class="skill-bar">' +
+              '<div class="skill-bar-fill" data-width="' +
+              skill.percent +
+              '"></div></div></div>'
+            );
+          })
+          .join("");
         return (
-          '<div class="col-md-6 col-lg-3 mb-4">' +
-          '<div class="bg-dark rounded p-3 text-center h-100">' +
-          '<i class="fas fa-certificate text-warning text-5 mb-2"></i>' +
-          '<h4 class="text-white text-3 fw-600 mb-1">' +
-          cert.name +
+          '<div class="skill-card reveal"><h4><span class="dot"></span>' +
+          group.label +
           "</h4>" +
-          '<p class="text-white-50 text-2 mb-0">' +
-          cert.issuer +
-          "</p>" +
-          '<p class="text-muted text-1 mb-0">' +
-          cert.year +
-          "</p>" +
-          "</div>" +
+          rows +
           "</div>"
         );
       })
       .join("");
   }
 
-  function renderTechStack() {
-    var container = document.getElementById("tech-stack-container");
-    if (!container) return;
-    container.innerHTML = siteData.techStack
-      .map(function (tech) {
+  /* Certifications -------------------------------------------------------------- */
+  function renderCertifications() {
+    el("certifications-container").innerHTML = siteData.certifications
+      .map(function (cert) {
         return (
-          '<span class="badge bg-dark-2 text-white-50 me-2 mb-2 px-3 py-2" style="font-size: 0.8rem;">' +
-          tech +
-          "</span>"
+          '<div class="cert-card reveal"><div class="cert-icon">' +
+          icon("award") +
+          "</div><h4>" +
+          cert.name +
+          "</h4><p>" +
+          cert.issuer +
+          '</p><p class="cert-year">' +
+          cert.year +
+          "</p></div>"
         );
       })
       .join("");
   }
 
+  /* Tech stack --------------------------------------------------------------------- */
+  function renderTechStack() {
+    el("tech-stack-container").innerHTML = siteData.techStack
+      .map(function (t) {
+        return '<span class="chip">' + t + "</span>";
+      })
+      .join("");
+  }
+
+  /* Portfolio ------------------------------------------------------------------------ */
+  function monogram(name) {
+    return name
+      .replace(/[^A-Za-z ]/g, "")
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(function (w) {
+        return w.charAt(0).toUpperCase();
+      })
+      .join("");
+  }
+
+  function renderPortfolio() {
+    el("portfolio-container").innerHTML = siteData.portfolio
+      .map(function (project) {
+        var features = project.features
+          .slice(0, 3)
+          .map(function (f) {
+            return "<li>" + icon("check") + "<span>" + f + "</span></li>";
+          })
+          .join("");
+        var tags = project.technologies
+          .map(function (t) {
+            return '<span class="chip">' + t + "</span>";
+          })
+          .join("");
+        return (
+          '<article class="work-card reveal" data-category="' +
+          project.category +
+          '">' +
+          '<div class="work-visual" style="--hue:' +
+          project.hue +
+          '">' +
+          '<span class="work-cat">' +
+          project.categoryLabel +
+          "</span>" +
+          '<span class="work-mono" aria-hidden="true">' +
+          monogram(project.shortName) +
+          "</span></div>" +
+          '<div class="work-body"><h3>' +
+          project.name +
+          '</h3><p class="work-role">' +
+          project.role +
+          '</p><p class="work-desc">' +
+          project.description +
+          '</p><ul class="work-features">' +
+          features +
+          '</ul><div class="work-tags">' +
+          tags +
+          "</div>" +
+          '<a class="work-link" href="' +
+          project.url +
+          '" target="_blank" rel="noopener noreferrer">Visit live site ' +
+          icon("arrow") +
+          "</a></div></article>"
+        );
+      })
+      .join("");
+  }
+
+  /* Contact and footer ------------------------------------------------------------------ */
+  function contactRow(iconName, innerHTML) {
+    return (
+      '<span class="c-icon">' + icon(iconName) + "</span><span>" + innerHTML + "</span>"
+    );
+  }
+
   function renderContact() {
-    // Address
-    var address = document.getElementById("contact-address");
-    if (address)
-      address.innerHTML = siteData.contact.addressLines.join("<br>\n");
-
-    // Phone (click to call)
-    var phone = document.getElementById("contact-phone");
-    if (phone) {
-      var phoneNumber = siteData.contact.phone.replace(/\s+/g, ""); // Remove spaces
-      phone.innerHTML =
-        '<span class="text-primary text-4 me-2"><i class="fas fa-phone"></i></span>' +
-        '<a href="tel:' +
-        phoneNumber +
-        '" class="text-light text-decoration-none">' +
-        siteData.contact.phone +
-        "</a>";
-    }
-
-    // WhatsApp (click to chat)
-    var whatsapp = document.getElementById("contact-whatsapp");
-    if (whatsapp) {
-      var waNumber = siteData.contact.whatsapp
-        .replace(/\s+/g, "")
-        .replace("+", ""); // Remove spaces and leading +
-      whatsapp.innerHTML =
-        '<span class="text-primary text-4 me-2"><i class="fab fa-whatsapp"></i></span>' +
-        '<a href="https://wa.me/' +
-        waNumber +
-        '" target="_blank" rel="noopener noreferrer" class="text-light text-decoration-none">' +
+    el("contact-address").innerHTML = contactRow(
+      "pin",
+      siteData.contact.addressLines.join("<br>")
+    );
+    var phoneClean = siteData.contact.phone.replace(/\s+/g, "");
+    el("contact-phone").innerHTML = contactRow(
+      "phone",
+      '<a href="tel:' + phoneClean + '">' + siteData.contact.phone + "</a>"
+    );
+    var waClean = siteData.contact.whatsapp.replace(/[\s+]/g, "");
+    el("contact-whatsapp").innerHTML = contactRow(
+      "whatsapp",
+      '<a href="https://wa.me/' +
+        waClean +
+        '" target="_blank" rel="noopener noreferrer">WhatsApp: ' +
         siteData.contact.whatsapp +
-        "</a>";
-    }
-
-    // Email (click to compose)
-    var email = document.getElementById("contact-email");
-    if (email) {
-      email.innerHTML =
-        '<span class="text-primary text-4 me-2"><i class="fas fa-envelope"></i></span>' +
-        '<a href="mailto:' +
+        "</a>"
+    );
+    el("contact-email").innerHTML = contactRow(
+      "mail",
+      '<a href="mailto:' +
         siteData.contact.email +
-        '" class="text-light text-decoration-none">' +
+        '">' +
         siteData.contact.email +
-        "</a>";
-    }
-
-    // Working hours (commented out, leave as is)
-    /*
-  var workingHours = document.getElementById('contact-working-hours');
-  if (workingHours) workingHours.innerHTML = '<span class="text-primary text-4 me-2"><i class="fas fa-clock"></i></span>' + siteData.contact.workingHours;
-  */
-
-    // Response time
-    var responseTime = document.getElementById("contact-response-time");
-    if (responseTime)
-      responseTime.innerHTML =
-        '<span class="text-primary text-4 me-2"><i class="fas fa-bolt"></i></span>' +
-        siteData.contact.responseTime;
-
-    // Social icons (excluding WhatsApp because it's already in contact info)
-    var contactSocial = document.getElementById("contact-social-icons");
-    if (contactSocial) {
-      var linksWithoutWhatsapp = siteData.socialLinks.filter(function (s) {
-        return s.platform !== "whatsapp";
-      });
-      contactSocial.innerHTML = socialListHTML(linksWithoutWhatsapp, "");
-    }
+        "</a>"
+    );
+    el("contact-response-time").innerHTML = contactRow(
+      "clock",
+      siteData.contact.responseTime
+    );
+    el("contact-social-icons").innerHTML = socialButtonsHTML();
+    el("footer-social-icons").innerHTML = socialButtonsHTML();
   }
 
-  function renderFooter() {
-    var footerText = document.getElementById("footer-copyright");
-    if (footerText) {
-      footerText.innerHTML =
-        "Copyright &copy; " +
-        siteData.footer.year +
-        ' <a href="#" class="fw-500">' +
-        siteData.footer.company +
-        "</a>. All Rights Reserved.";
-    }
+  function renderFooterAndCv() {
+    var year = new Date().getFullYear();
+    el("footer-copyright").innerHTML =
+      "Copyright © " +
+      year +
+      ' <a href="#home">' +
+      siteData.footer.company +
+      "</a>. All rights reserved.";
+    document.querySelectorAll(".js-download-cv").forEach(function (link) {
+      link.setAttribute("href", siteData.profile.resumeFile);
+      link.setAttribute("download", "");
+    });
   }
 
-  // Initialize all sections
-  renderHeader();
   renderHero();
+  renderMarquee();
   renderAbout();
   renderServices();
-  renderEducation();
-  renderExperience();
+  renderResume();
   renderSkills();
-  renderPortfolio();
   renderCertifications();
   renderTechStack();
+  renderPortfolio();
   renderContact();
-  renderFooter();
+  renderFooterAndCv();
 })();

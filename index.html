@@ -2,742 +2,376 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="images/programmer.png" rel="icon" />
-    <title>Hamza Shabbir - Portfolio</title>
+    <title>Hamza Shabbir: Principal Engineer and Team Lead</title>
     <meta
       name="description"
-      content="Muhammad Hamza Shabbir Portfolio Website"
+      content="Portfolio of Muhammad Hamza Shabbir, a Principal Engineer and Team Lead with 6+ years of full-stack experience. Laravel, React, and scalable web platforms."
     />
     <meta name="author" content="Muhammad Hamza Shabbir" />
+    <meta name="theme-color" content="#07090f" />
+    <link rel="canonical" href="https://mhamzase.github.io/" />
 
-    <!-- Web Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mhamzase.github.io/" />
+    <meta
+      property="og:title"
+      content="Hamza Shabbir: Principal Engineer and Team Lead"
     />
+    <meta
+      property="og:description"
+      content="I build scalable digital products that solve real business problems. 6+ years, 72+ projects delivered."
+    />
+    <meta
+      property="og:image"
+      content="https://mhamzase.github.io/images/profile.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Fontawesome icon kit pack -->
-    <script
-      src="https://kit.fontawesome.com/28a02cc159.js"
-      crossorigin="anonymous"
-    ></script>
+    <link href="images/programmer.png" rel="icon" type="image/png" />
 
-    <!-- Stylesheet
-============================== -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <!-- Font Awesome Icon -->
-    <link rel="stylesheet" type="text/css" href="css/all.min.css" />
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" type="text/css" href="owl.carousel.min.css" />
-    <!-- Magnific Popup -->
-    <link rel="stylesheet" type="text/css" href="magnific-popup.min.css" />
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
-    <!-- Colors Css -->
-    <link id="color-switcher" type="text/css" rel="stylesheet" href="#" />
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Muhammad Hamza Shabbir",
+        "jobTitle": "Principal Engineer",
+        "url": "https://mhamzase.github.io/",
+        "image": "https://mhamzase.github.io/images/profile.jpg",
+        "email": "mailto:mhamzasulehri143@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Zafarwal",
+          "addressRegion": "Punjab",
+          "addressCountry": "PK"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/mhamzase",
+          "https://www.github.com/mhamzase",
+          "https://www.facebook.com/mhamzase",
+          "https://instagram.com/haimiraj"
+        ]
+      }
+    </script>
+
+    <!-- Fonts: Sora is self-hosted, no CDN -->
+    <link
+      rel="preload"
+      href="assets/fonts/sora/sora.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body
-    class="side-header"
-    data-bs-spy="scroll"
-    data-bs-target="#header-nav"
-    data-bs-offset="1"
-  >
+  <body>
     <!-- Preloader -->
-    <div class="preloader preloader-dark">
-      <div class="lds-ellipsis">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+    <div class="preloader" id="preloader" aria-hidden="true">
+      <div class="preloader-inner">
+        <span class="preloader-logo">H<span>.</span></span>
+        <span class="preloader-bar"><span class="preloader-bar-fill"></span></span>
       </div>
     </div>
-    <!-- Preloader End -->
 
-    <!-- Document Wrapper   
-=============================== -->
-    <div id="main-wrapper">
-      <!-- Header
-  ============================ -->
-      <header id="header" class="sticky-top">
-        <!-- Navbar -->
-        <nav
-          class="primary-menu navbar navbar-expand-lg bg-dark navbar-text-light border-bottom-0"
-        >
-          <div
-            class="container-fluid position-relative h-100 flex-lg-column ps-3 px-lg-3 pt-lg-3 pb-lg-2"
-          >
-            <!-- Logo -->
-            <a href="#" class="mb-lg-auto mt-lg-4">
-              <div class="d-flex justify-content-center">
-                <span
-                  class="bg-dark-2 rounded-pill p-2 mb-lg-1 d-none d-lg-inline-block w-75"
-                >
-                  <img
-                    id="header-profile-img"
-                    class="img-fluid rounded-pill d-block"
-                    src=""
-                    title=""
-                    alt=""
-                  />
-                </span>
-              </div>
-              <h1
-                id="header-name"
-                class="text-5 text-white text-center mb-0 mt-2 d-lg-block"
-              ></h1>
-            </a>
-            <!-- Logo End -->
+    <!-- Ambient background: gradient orbs and grid, pure CSS -->
+    <div class="ambient" aria-hidden="true">
+      <div class="orb orb-a"></div>
+      <div class="orb orb-b"></div>
+      <div class="orb orb-c"></div>
+      <div class="grid-overlay"></div>
+    </div>
 
-            <div
-              id="header-nav"
-              class="collapse navbar-collapse w-100 my-lg-auto"
-            >
-              <ul class="navbar-nav text-lg-center my-lg-auto py-lg-3">
-                <li class="nav-item">
-                  <a class="nav-link smooth-scroll active" href="#home">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link smooth-scroll" href="#about">About Me</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link smooth-scroll" href="#services"
-                    >What I Do</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link smooth-scroll" href="#resume">Resume</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link smooth-scroll" href="#certifications"
-                    >Certifications</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link smooth-scroll" href="#tech-stack"
-                    >Tech Stack</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link smooth-scroll" href="#portfolio"
-                    >Portfolio</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link smooth-scroll" href="#contact">Contact</a>
-                </li>
-              </ul>
-            </div>
-            <ul
-              id="header-social-icons"
-              class="social-icons social-icons-muted social-icons-sm mt-lg-auto ms-auto ms-lg-0 d-flex"
-            ></ul>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#header-nav"
-            >
-              <span></span><span></span><span></span>
-            </button>
-          </div>
+    <!-- Header -->
+    <header class="site-header" id="site-header">
+      <div class="container header-inner">
+        <a href="#home" class="logo" aria-label="Hamza Shabbir, home">
+          <span class="logo-mark">H<span>.</span></span>
+          <span class="logo-text">Hamza Shabbir</span>
+        </a>
+        <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+          <a href="#home" class="nav-link active">Home</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#services" class="nav-link">Services</a>
+          <a href="#experience" class="nav-link">Experience</a>
+          <a href="#work" class="nav-link">Work</a>
+          <a href="#contact" class="nav-link">Contact</a>
+          <a href="#" class="btn btn-small btn-gold js-download-cv nav-cta">
+            Download CV
+          </a>
         </nav>
-        <!-- Navbar End -->
-      </header>
-      <!-- Header End -->
-
-      <!-- Content
-  ============================================= -->
-      <div id="content" role="main">
-        <!-- Intro
-    ============================================= -->
-        <section id="home">
-          <div class="hero-wrap">
-            <div class="hero-mask opacity-8 bg-dark"></div>
-            <div
-              class="hero-bg parallax"
-              style="background-image: url(&quot;images/intro-bg.jpg&quot;)"
-            ></div>
-            <div class="hero-content section d-flex fullscreen">
-              <div class="container my-auto">
-                <div class="row">
-                  <div class="col-12 text-center">
-                    <div id="typed-strings" class="typed-strings"></div>
-                    <p
-                      id="hero-greeting"
-                      class="text-7 fw-500 text-white mb-2 mb-md-3"
-                    ></p>
-                    <h2 class="text-16 fw-600 text-white mb-2 mb-md-3">
-                      <span class="typed"></span>
-                    </h2>
-                    <p
-                      id="hero-tagline"
-                      class="text-5 text-light mb-4 fst-italic"
-                    ></p>
-                    <a
-                      href="#contact"
-                      class="btn btn-outline-primary rounded-pill shadow-none smooth-scroll mt-2"
-                      >Hire Me</a
-                    >
-                  </div>
-                </div>
-              </div>
-              <a
-                href="#about"
-                class="scroll-down-arrow text-white smooth-scroll"
-                ><span class="animated"
-                  ><i class="fa fa-chevron-down" aria-hidden="true"></i></span
-              ></a>
-            </div>
-          </div>
-        </section>
-        <!-- Intro end -->
-
-        <!-- About
-    ============================================= -->
-        <section id="about" class="section bg-dark-1">
-          <div class="container px-lg-5">
-            <!-- Heading -->
-            <div class="position-relative d-flex text-center mb-5">
-              <h2
-                class="text-24 text-muted opacity-1 text-uppercase fw-600 w-100 mb-0"
-              >
-                About Me
-              </h2>
-              <p
-                class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0"
-              >
-                Know Me More<span
-                  class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"
-                ></span>
-              </p>
-            </div>
-            <!-- Heading end-->
-
-            <div class="row gy-5">
-              <div class="col-lg-7 col-xl-8 text-center text-lg-start">
-                <h2
-                  id="about-heading"
-                  class="text-7 text-white fw-600 mb-3"
-                ></h2>
-                <div id="about-paragraphs"></div>
-              </div>
-              <div class="col-lg-5 col-xl-4">
-                <div class="ps-lg-4">
-                  <ul
-                    id="about-info-list"
-                    class="list-style-2 list-style-light text-light"
-                  ></ul>
-                  <a
-                    href="#"
-                    class="js-download-cv btn btn-primary rounded-pill"
-                    >Download CV</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div
-              class="brands-grid separator-border separator-border-light mt-5"
-            >
-              <div id="stats-container" class="row"></div>
-            </div>
-          </div>
-        </section>
-        <!-- About end -->
-
-        <!-- Services
-    ============================================= -->
-        <section id="services" class="section bg-dark-2">
-          <div class="container px-lg-5">
-            <!-- Heading -->
-            <div class="position-relative d-flex text-center mb-5">
-              <h2
-                class="text-24 text-white-50 opacity-1 text-uppercase fw-600 w-100 mb-0"
-              >
-                Services
-              </h2>
-              <p
-                class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0"
-              >
-                What I Do?<span
-                  class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"
-                ></span>
-              </p>
-            </div>
-            <!-- Heading end-->
-
-            <div class="row">
-              <div class="col-lg-11 mx-auto">
-                <div id="services-container" class="row"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- Services end -->
-
-        <!-- Resume
-    ============================================= -->
-        <section id="resume" class="section bg-dark-1">
-          <div class="container px-lg-5">
-            <!-- Heading -->
-            <div class="position-relative d-flex text-center mb-5">
-              <h2
-                class="text-24 text-muted opacity-1 text-uppercase fw-600 w-100 mb-0"
-              >
-                Summary
-              </h2>
-              <p
-                class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0"
-              >
-                Resume<span
-                  class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"
-                ></span>
-              </p>
-            </div>
-            <!-- Heading end-->
-
-            <div class="row gx-5">
-              <!-- My Education -->
-              <div class="col-md-6">
-                <h2 class="text-6 text-white fw-600 mb-4">My Education</h2>
-                <div id="education-container"></div>
-              </div>
-
-              <!-- My Experience -->
-              <div class="col-md-6">
-                <h2 class="text-6 text-white fw-600 mb-4">My Experience</h2>
-                <div id="experience-container"></div>
-              </div>
-            </div>
-            <!-- My Skills -->
-            <h2 class="text-6 text-white fw-600 mt-4 mb-4">My Skills</h2>
-            <div class="row gx-5">
-              <div id="skills-column-1" class="col-md-6"></div>
-              <div id="skills-column-2" class="col-md-6"></div>
-            </div>
-            <div class="text-center mt-5">
-              <a
-                href="#"
-                class="js-download-cv btn btn-outline-secondary rounded-pill shadow-none"
-                >Download CV
-                <span class="ms-1"><i class="fas fa-download"></i></span
-              ></a>
-            </div>
-          </div>
-        </section>
-        <!-- Resume end -->
-
-        <!-- Certifications
-    ============================================= -->
-        <section id="certifications" class="section bg-dark-2">
-          <div class="container px-lg-5">
-            <!-- Heading -->
-            <div class="position-relative d-flex text-center mb-5">
-              <h2
-                class="text-24 text-white-50 opacity-1 text-uppercase fw-600 w-100 mb-0"
-              >
-                Credentials
-              </h2>
-              <p
-                class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0"
-              >
-                Certifications<span
-                  class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"
-                ></span>
-              </p>
-            </div>
-            <!-- Heading end-->
-            <div id="certifications-container" class="row"></div>
-          </div>
-        </section>
-        <!-- Certifications end -->
-
-        <!-- Tech Stack
-    ============================================= -->
-        <section id="tech-stack" class="section bg-dark-1">
-          <div class="container px-lg-5">
-            <!-- Heading -->
-            <div class="position-relative d-flex text-center mb-5">
-              <h2
-                class="text-24 text-muted opacity-1 text-uppercase fw-600 w-100 mb-0"
-              >
-                Toolbox
-              </h2>
-              <p
-                class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0"
-              >
-                Tech Stack<span
-                  class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"
-                ></span>
-              </p>
-            </div>
-            <!-- Heading end-->
-            <div id="tech-stack-container" class="text-center"></div>
-          </div>
-        </section>
-        <!-- Tech Stack end -->
-
-        <!-- Portfolio
-    ============================================= -->
-        <section id="portfolio" class="section bg-dark-2">
-          <div class="container px-lg-5">
-            <!-- Heading -->
-            <div class="position-relative d-flex text-center mb-5">
-              <h2
-                class="text-24 text-white-50 opacity-1 text-uppercase fw-600 w-100 mb-0"
-              >
-                Portfolio
-              </h2>
-              <p
-                class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0"
-              >
-                My Work<span
-                  class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"
-                ></span>
-              </p>
-            </div>
-            <!-- Heading end-->
-
-            <div class="row gx-5">
-              <!-- My Work -->
-              <div id="portfolio-column-1" class="col-md-6"></div>
-              <div id="portfolio-column-2" class="col-md-6"></div>
-            </div>
-          </div>
-        </section>
-        <!-- Portfolio end -->
-
-        <!-- Contact Me
-    ============================================= -->
-        <section id="contact" class="section bg-dark-2">
-          <div class="container px-lg-5">
-            <!-- Heading -->
-            <div class="position-relative d-flex text-center mb-5">
-              <h2
-                class="text-24 text-white-50 opacity-1 text-uppercase fw-600 w-100 mb-0"
-              >
-                Contact
-              </h2>
-              <p
-                class="text-9 text-white fw-600 position-absolute w-100 align-self-center lh-base mb-0"
-              >
-                Get in Touch<span
-                  class="heading-separator-line border-bottom border-3 border-primary d-block mx-auto"
-                ></span>
-              </p>
-            </div>
-            <!-- Heading end-->
-            <div class="row gy-5">
-              <div
-                class="col-md-4 col-xl-3 order-1 order-md-0 text-center text-md-start"
-              >
-                <h2 class="mb-3 text-5 text-white text-uppercase">Address</h2>
-                <p id="contact-address" class="text-3 text-light mb-4"></p>
-                <p id="contact-phone" class="text-3 text-light mb-1"></p>
-                <p id="contact-whatsapp" class="text-3 text-light mb-1"></p>
-                <p id="contact-email" class="text-3 text-light mb-1"></p>
-                <!-- <p
-                  id="contact-working-hours"
-                  class="text-3 text-light mb-1"
-                ></p> -->
-                <p
-                  id="contact-response-time"
-                  class="text-3 text-light mb-4"
-                ></p>
-                <h2 class="mb-3 text-5 text-white text-uppercase">Follow Me</h2>
-                <ul
-                  id="contact-social-icons"
-                  class="social-icons social-icons-muted justify-content-center justify-content-md-start"
-                ></ul>
-              </div>
-              <div class="col-md-8 col-xl-9 order-0 order-md-1">
-                <h2
-                  class="mb-3 text-5 text-white text-uppercase text-center text-md-start"
-                >
-                  Send us a note
-                </h2>
-                <form
-                  id="contact-form"
-                  class="form-dark"
-                  action="#"
-                  method="POST"
-                >
-                  <div class="row g-4">
-                    <div class="col-xl-6">
-                      <input
-                        name="name"
-                        type="text"
-                        class="form-control"
-                        required
-                        placeholder="Name"
-                      />
-                    </div>
-                    <div class="col-xl-6">
-                      <input
-                        name="email"
-                        type="email"
-                        class="form-control"
-                        required
-                        placeholder="Email"
-                      />
-                    </div>
-                    <div class="col">
-                      <textarea
-                        name="form-message"
-                        class="form-control"
-                        rows="5"
-                        required
-                        placeholder="Tell us more about your needs........"
-                      ></textarea>
-                    </div>
-                  </div>
-                  <p class="text-center mt-4 mb-0">
-                    <button
-                      id="submit-btn"
-                      class="btn btn-primary rounded-pill d-inline-flex justify-content-center align-items-center"
-                      type="submit"
-                    >
-                      Send Message
-                    </button>
-                  </p>
-                  <div id="form-message" class="mt-3 text-center"></div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- Contact Me end -->
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="main-nav"
+        >
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <!-- Content end -->
+      <div class="scroll-progress" aria-hidden="true">
+        <span id="scroll-progress-bar"></span>
+      </div>
+    </header>
 
-      <!-- Footer
-  ============================================= -->
-      <footer id="footer" class="section footer-text-light bg-dark-1">
-        <div class="container px-lg-5">
-          <div class="row">
-            <div class="col-lg-6 text-center text-lg-start">
-              <p id="footer-copyright" class="mb-3 mb-lg-0"></p>
+    <main>
+      <!-- Hero -->
+      <section class="hero" id="home">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <p class="hero-badge reveal">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              <span id="hero-availability">Available for projects</span>
+            </p>
+            <p class="hero-greeting reveal" id="hero-greeting"></p>
+            <h1 class="hero-title reveal">
+              <span class="typed-wrap">
+                <span id="typed-text"></span><span class="typed-caret" aria-hidden="true"></span>
+              </span>
+            </h1>
+            <p class="hero-tagline reveal" id="hero-tagline"></p>
+            <div class="hero-actions reveal">
+              <a href="#contact" class="btn btn-gold btn-magnetic">
+                Hire Me
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a href="#work" class="btn btn-ghost btn-magnetic">View My Work</a>
             </div>
-            <!-- <div class="col-lg-6">
-            <ul class="nav nav-separator nav-separator-light justify-content-center justify-content-lg-end">
-              <li class="nav-item"> <a class="nav-link" data-bs-toggle="modal" data-bs-target="#terms-policy"
-                  href="#">Terms & Policy</a></li>
-              <li class="nav-item"> <a class="nav-link" data-bs-toggle="modal" data-bs-target="#disclaimer"
-                  href="#">Disclaimer</a></li>
-            </ul>
-          </div> -->
+            <div class="hero-stats reveal" id="stats-container"></div>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="tilt-scene">
+              <div class="profile-card tilt" data-tilt-max="7">
+                <div class="profile-card-glow" aria-hidden="true"></div>
+                <picture>
+                  <source srcset="images/profile.webp" type="image/webp" />
+                  <img
+                    src="images/profile.jpg"
+                    alt="Portrait of Hamza Shabbir"
+                    width="640"
+                    height="640"
+                    fetchpriority="high"
+                  />
+                </picture>
+                <div class="profile-card-info">
+                  <p class="profile-card-name" id="profile-card-name"></p>
+                  <p class="profile-card-role">Principal Engineer · Team Lead</p>
+                </div>
+              </div>
+              <div class="float-badge float-badge-a" aria-hidden="true">
+                <strong>6+</strong><span>Years Experience</span>
+              </div>
+              <div class="float-badge float-badge-b" aria-hidden="true">
+                <strong>72+</strong><span>Projects Delivered</span>
+              </div>
+              <div class="float-badge float-badge-c" aria-hidden="true">
+                <strong>Laravel · React</strong><span>Core Stack</span>
+              </div>
+            </div>
           </div>
         </div>
-      </footer>
-      <!-- Footer end -->
-    </div>
-    <!-- Document Wrapper end -->
+        <a href="#about" class="scroll-hint" aria-label="Scroll down to About">
+          <span class="scroll-hint-line"></span> Scroll
+        </a>
+      </section>
 
-    <!-- Back to Top
-============================================= -->
+      <!-- Tech marquee -->
+      <div class="marquee-band" aria-hidden="true">
+        <div class="marquee-track" id="marquee-track"></div>
+      </div>
+
+      <!-- About -->
+      <section class="section" id="about">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="section-eyebrow">About Me</p>
+            <h2 class="section-title">Know me more</h2>
+          </div>
+          <div class="about-grid">
+            <div class="about-copy reveal">
+              <h3 class="about-heading" id="about-heading"></h3>
+              <div id="about-paragraphs"></div>
+              <div class="about-actions">
+                <a href="#" class="btn btn-gold js-download-cv">Download CV</a>
+                <a href="#contact" class="btn btn-ghost">Let us talk</a>
+              </div>
+            </div>
+            <aside class="about-card reveal" aria-label="Personal details">
+              <ul class="info-list" id="about-info-list"></ul>
+              <div class="about-socials">
+                <p class="about-socials-label">Follow me</p>
+                <div class="social-row" id="about-social-icons"></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section class="section section-alt" id="services">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="section-eyebrow">Services</p>
+            <h2 class="section-title">What I do</h2>
+            <p class="section-sub">
+              Practical services for businesses that want a product built
+              properly, from the first sketch to a live, growing system.
+            </p>
+          </div>
+          <div class="services-grid" id="services-container"></div>
+        </div>
+      </section>
+
+      <!-- Experience and education -->
+      <section class="section" id="experience">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="section-eyebrow">Resume</p>
+            <h2 class="section-title">Experience and education</h2>
+          </div>
+          <div class="resume-grid">
+            <div>
+              <h3 class="resume-col-title reveal">My Experience</h3>
+              <div class="timeline" id="experience-container"></div>
+            </div>
+            <div>
+              <h3 class="resume-col-title reveal">My Education</h3>
+              <div class="timeline" id="education-container"></div>
+            </div>
+          </div>
+
+          <h3 class="resume-col-title mt reveal">My Skills</h3>
+          <div class="skills-grid" id="skills-container"></div>
+
+          <h3 class="resume-col-title mt reveal">Certifications</h3>
+          <div class="certs-grid" id="certifications-container"></div>
+
+          <h3 class="resume-col-title mt reveal">Tech Stack</h3>
+          <div class="tech-cloud reveal" id="tech-stack-container"></div>
+        </div>
+      </section>
+
+      <!-- Portfolio -->
+      <section class="section section-alt" id="work">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="section-eyebrow">Portfolio</p>
+            <h2 class="section-title">Selected work</h2>
+            <p class="section-sub">
+              A few projects I have planned, built, and shipped. Every card
+              links to the live product.
+            </p>
+          </div>
+          <div class="filter-bar reveal" id="portfolio-filters" role="group" aria-label="Filter projects">
+            <button class="filter-btn active" data-filter="all" type="button">All Work</button>
+            <button class="filter-btn" data-filter="platform" type="button">SaaS and Platforms</button>
+            <button class="filter-btn" data-filter="website" type="button">Websites</button>
+          </div>
+          <div class="work-grid" id="portfolio-container"></div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contact">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="section-eyebrow">Contact</p>
+            <h2 class="section-title">Let us build something</h2>
+            <p class="section-sub">
+              Tell me a little about your project. I usually reply within a
+              couple of hours.
+            </p>
+          </div>
+          <div class="contact-grid">
+            <aside class="contact-card reveal">
+              <h3 class="contact-card-title">Contact details</h3>
+              <ul class="contact-list">
+                <li id="contact-address"></li>
+                <li id="contact-phone"></li>
+                <li id="contact-whatsapp"></li>
+                <li id="contact-email"></li>
+                <li id="contact-response-time"></li>
+              </ul>
+              <div class="social-row" id="contact-social-icons"></div>
+              <a
+                class="btn btn-whatsapp"
+                href="https://wa.me/923042445911"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Chat on WhatsApp
+              </a>
+            </aside>
+
+            <form class="contact-form reveal" id="contact-form" novalidate>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="cf-name">Your name</label>
+                  <input id="cf-name" name="name" type="text" required placeholder="Your name" autocomplete="name" />
+                </div>
+                <div class="form-field">
+                  <label for="cf-email">Your email</label>
+                  <input id="cf-email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="cf-subject">Subject</label>
+                <input id="cf-subject" name="subject" type="text" placeholder="What is this about?" />
+              </div>
+              <div class="form-field">
+                <label for="cf-message">Message</label>
+                <textarea id="cf-message" name="message" rows="5" required placeholder="Tell me about your project, your timeline, and what you need help with."></textarea>
+              </div>
+              <button class="btn btn-gold" type="submit" id="submit-btn">
+                Send Message
+              </button>
+              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+              <p class="form-note">
+                The form opens your email app with the message ready to send.
+                Prefer talking first? WhatsApp is on the left.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a href="#home" class="logo">
+          <span class="logo-mark">H<span>.</span></span>
+          <span class="logo-text">Hamza Shabbir</span>
+        </a>
+        <p class="footer-copy" id="footer-copyright"></p>
+        <div class="social-row" id="footer-social-icons"></div>
+      </div>
+    </footer>
+
+    <!-- Back to top and WhatsApp float -->
+    <a href="#home" class="back-to-top" id="back-to-top" aria-label="Back to top">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
     <a
-      id="back-to-top"
-      class="rounded-circle"
-      data-bs-toggle="tooltip"
-      title="Back to Top"
-      href="javascript:void(0)"
-      ><i class="fa fa-chevron-up"></i
-    ></a>
+      href="https://wa.me/923042445911"
+      class="whatsapp-float"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp"
+    >
+      <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.4 15.2L2 22l4.9-1.6A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 1 1-4.1 15.1l-.3-.18-3 .97 1-2.9-.19-.3A8.1 8.1 0 0 1 12.04 3.8Zm-3.1 3.9c-.16 0-.42.06-.64.31-.22.26-.86.84-.86 1.83 0 .99.72 1.94.82 2.08.1.13 1.4 2.3 3.5 3.13 1.75.69 2.1.55 2.49.46.39-.09 1.27-.52 1.45-1.02.18-.5.18-.93.13-1.02-.06-.08-.21-.14-.44-.25-.23-.12-.51-.26-.79-.4-.27-.13-.36-.22-.27-.45.09-.23.4-.53.54-.72.14-.19.19-.33.1-.55-.09-.22-.46-1.13-.62-1.47-.16-.34-.31-.35-.47-.35Z"/></svg>
+    </a>
 
-    <!-- Terms & Policy Modal
-================================== -->
-    <div id="terms-policy" class="modal fade" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content bg-dark-2 text-light">
-          <div class="modal-header border-secondary">
-            <h5 class="modal-title text-white">Terms & Policy</h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body p-4">
-            <p>
-              Simply dummy text of the printing and typesetting industry. Lorem
-              Ipsum has been the industry's standard dummy text ever since the
-              1500s, when an unknown printer took a galley of type and scrambled
-              it to make a type specimen book. It has survived not only five
-              centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged.
-            </p>
-            <h3 class="text-white mb-3 mt-4 mt-4">Terms of Use</h3>
-            <p>
-              It has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. Simply
-              dummy text of the printing and typesetting industry.
-            </p>
-            <h5 class="text-white text-4 mt-4">
-              Part I – Information Simone collects and controls
-            </h5>
-            <p>
-              Lorem Ipsum has been the industry's standard dummy text ever since
-              the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book.
-            </p>
-            <h5 class="text-white text-4 mt-4">
-              Part II – Information that Simone processes on your behalf
-            </h5>
-            <p>
-              Lorem Ipsum has been the industry's standard dummy text ever since
-              the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book.
-            </p>
-            <h5 class="text-white text-4 mt-4">Part III – General</h5>
-            <p>
-              It has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. Lorem
-              Ipsum has been the industry's standard dummy text ever since the
-              1500s, when an unknown printer took a galley of type and scrambled
-              it to make a type specimen book.
-            </p>
-            <h3 class="text-white mb-3 mt-4">Privacy Policy</h3>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </p>
-            <ol class="lh-lg">
-              <li>
-                Lisque persius interesset his et, in quot quidam persequeris
-                vim, ad mea essent possim iriure.
-              </li>
-              <li>
-                Quidam lisque persius interesset his et, Lisque persius
-                interesset his et, in quot quidam persequeris vim, ad mea essent
-                possim iriure.
-              </li>
-              <li>
-                In quot quidam persequeris vim, ad mea essent possim iriure.
-                Quidam lisque persius interesset his et.
-              </li>
-              <li>
-                Quidam lisque persius interesset his et, Lisque persius
-                interesset his et.
-              </li>
-              <li>
-                Interesset his et, Lisque persius interesset his et, in quot
-                quidam persequeris vim, ad mea essent possim iriure.
-              </li>
-              <li>
-                Persius interesset his et, Lisque persius interesset his et, in
-                quot quidam persequeris vim, ad mea essent possim iriure.
-              </li>
-              <li>
-                Quot quidam persequeris vim Quidam lisque persius interesset his
-                et, Lisque persius interesset his et, in quot quidam persequeris
-                vim, ad mea essent possim iriure.
-              </li>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Terms & Policy Modal End -->
-
-    <!-- Disclaimer Modal
-================================== -->
-    <div id="disclaimer" class="modal fade" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content bg-dark-2 text-light">
-          <div class="modal-header border-secondary">
-            <h5 class="modal-title text-white">Copyright & Disclaimer</h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body p-4">
-            <p>
-              Simply dummy text of the printing and typesetting industry. Lorem
-              Ipsum has been the industry's standard dummy text ever since the
-              1500s, when an unknown printer took a galley of type and scrambled
-              it to make a type specimen book.
-            </p>
-            <ul class="lh-lg">
-              <li>
-                Lisque persius interesset his et, in quot quidam persequeris
-                vim, ad mea essent possim iriure.
-              </li>
-              <li>
-                Quidam lisque persius interesset his et, Lisque persius
-                interesset his et, in quot quidam persequeris vim, ad mea essent
-                possim iriure.
-              </li>
-              <li>
-                In quot quidam persequeris vim, ad mea essent possim iriure.
-                Quidam lisque persius interesset his et.
-              </li>
-              <li>
-                Quidam lisque persius interesset his et, Lisque persius
-                interesset his et.
-              </li>
-              <li>
-                Interesset his et, Lisque persius interesset his et, in quot
-                quidam persequeris vim, ad mea essent possim iriure.
-              </li>
-              <li>
-                Persius interesset his et, Lisque persius interesset his et, in
-                quot quidam persequeris vim, ad mea essent possim iriure.
-              </li>
-              <li>
-                Quot quidam persequeris vim Quidam lisque persius interesset his
-                et, Lisque persius interesset his et, in quot quidam persequeris
-                vim, ad mea essent possim iriure.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Disclaimer Modal End -->
-
-    <!-- JavaScript -->
-    <!-- Static data + renderer: must load before the theme scripts below so
-       that counters / typed text / etc. render against real content. -->
+    <!-- Scripts: data first, then renderer, then interactions.
+         All libraries are local files, nothing loads from a CDN. -->
     <script src="js/site-data.js"></script>
     <script src="js/site-render.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <!-- Easing -->
-    <script src="js/jquery.easing.min.js"></script>
-    <!-- Appear -->
-    <script src="js/jquery.appear.min.js"></script>
-    <!-- Images Loaded -->
-    <script src="js/imagesloaded.pkgd.min.js"></script>
-    <!-- Counter -->
-    <script src="js/jquery.countTo.min.js"></script>
-    <!-- Parallax Bg -->
-    <script src="js/parallaxie.min.js"></script>
-    <!-- Typed -->
-    <script src="js/typed.min.js"></script>
-    <!-- Owl Carousel -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- isotope Portfolio Filter -->
-    <script src="js/isotope.pkgd.min.js"></script>
-    <!-- Magnific Popup -->
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <!-- Style Switcher -->
-    <script src="js/switcher.min.js"></script>
-    <!-- EmailJS -->
-    <script src="js/email.min.js"></script>
-    <!-- Custom Script -->
-    <script src="js/theme.js"></script>
-    <script
-      id="google-recaptcha-v3"
-      src="https://www.google.com/recaptcha/api.js?render=6LcmyrcZAAAAAIHP9WnJyuxn9vBiiro6WRpITEsQ"
-    ></script>
+    <script src="js/vendor/gsap.min.js"></script>
+    <script src="js/vendor/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
