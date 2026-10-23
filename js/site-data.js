@@ -464,11 +464,7 @@ const siteData = {
   ],
 
   contact: {
-    addressLines: [
-      "Sulehri Town, Ward #5",
-      "Tehsil and P/O Zafarwal",
-      "District Narowal, Punjab, Pakistan",
-    ],
+    addressLines: ["Sulehri Town, Ward #5 Zafarwal"],
     phone: "+92 304 2445911",
     whatsapp: "+92 304 2445911",
     email: "mhamzasulehri143@gmail.com",
