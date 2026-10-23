@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,7 +29,17 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link href="images/programmer.png" rel="icon" type="image/png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="images/favicon.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="images/apple-touch-icon.png"
+    />
 
     <!-- Structured data -->
     <script type="application/ld+json">
@@ -64,6 +74,18 @@
       type="font/woff2"
       crossorigin
     />
+    <!-- Apply the saved theme before first paint. Dark is the default. -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("hamza-portfolio-theme");
+          document.documentElement.dataset.theme =
+            saved === "light" || saved === "dark" ? saved : "dark";
+        } catch (e) {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
@@ -102,6 +124,15 @@
             Download CV
           </a>
         </nav>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Switch to light mode"
+        >
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
         <button
           class="nav-toggle"
           id="nav-toggle"

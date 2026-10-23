@@ -33,6 +33,34 @@
   var navToggle = document.getElementById("nav-toggle");
   var mainNav = document.getElementById("main-nav");
 
+  /* Theme toggle: dark is the default, the choice is remembered */
+  var themeToggle = document.getElementById("theme-toggle");
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+  function syncThemeUI() {
+    var light = document.documentElement.dataset.theme === "light";
+    themeToggle.setAttribute(
+      "aria-label",
+      light ? "Switch to dark mode" : "Switch to light mode"
+    );
+    if (themeMeta) {
+      themeMeta.setAttribute("content", light ? "#f6f5f1" : "#07090f");
+    }
+  }
+  if (themeToggle) {
+    syncThemeUI();
+    themeToggle.addEventListener("click", function () {
+      var next =
+        document.documentElement.dataset.theme === "light" ? "dark" : "light";
+      document.documentElement.dataset.theme = next;
+      try {
+        localStorage.setItem("hamza-portfolio-theme", next);
+      } catch (e) {
+        /* private mode etc: theme still applies for this visit */
+      }
+      syncThemeUI();
+    });
+  }
+
   function onScroll() {
     var y = window.scrollY || 0;
     header.classList.toggle("scrolled", y > 24);
