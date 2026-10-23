@@ -318,7 +318,6 @@
         b.classList.toggle("active", b === button);
       });
       var filter = button.getAttribute("data-filter");
-      clearTechFilter();
       document.querySelectorAll(".work-card").forEach(function (card) {
         var show =
           filter === "all" || card.getAttribute("data-category") === filter;
@@ -330,77 +329,7 @@
     });
   }
 
-  /* 7b. Tech chips filter the Work grid, and case study modal ---------------- */
-  var techFilterBar = document.getElementById("work-tech-filter");
-  function clearTechFilter() {
-    if (techFilterBar) {
-      techFilterBar.hidden = true;
-      techFilterBar.innerHTML = "";
-    }
-    document.querySelectorAll("#tech-stack-container .chip.chip-active").forEach(function (c) {
-      c.classList.remove("chip-active");
-    });
-  }
-  function cardHasTech(card, tech) {
-    return (card.getAttribute("data-tech") || "").split("|").indexOf(tech) !== -1;
-  }
-  function applyTechFilter(chip) {
-    var tech = chip.textContent.trim().toLowerCase();
-    clearTechFilter();
-    chip.classList.add("chip-active");
-    document.querySelectorAll(".work-card").forEach(function (card) {
-      card.classList.toggle("hide", !cardHasTech(card, tech));
-    });
-    if (filterBar) {
-      filterBar.querySelectorAll(".filter-btn").forEach(function (b) {
-        b.classList.toggle("active", b.getAttribute("data-filter") === "all");
-      });
-    }
-    if (techFilterBar) {
-      techFilterBar.innerHTML =
-        "Showing projects built with <strong>" +
-        chip.textContent.trim() +
-        '</strong> <button type="button" class="tech-filter-clear" aria-label="Clear technology filter">&times; Show all</button>';
-      techFilterBar.hidden = false;
-      techFilterBar
-        .querySelector(".tech-filter-clear")
-        .addEventListener("click", function () {
-          clearTechFilter();
-          document.querySelectorAll(".work-card").forEach(function (card) {
-            card.classList.remove("hide");
-          });
-        });
-    }
-    var workSection = document.getElementById("work");
-    if (workSection) workSection.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
-    if (hasGsap && !reducedMotion && typeof ScrollTrigger !== "undefined") {
-      ScrollTrigger.refresh();
-    }
-  }
-  /* Only chips that match at least one project become clickable */
-  document.querySelectorAll("#tech-stack-container .chip").forEach(function (chip) {
-    var tech = chip.textContent.trim().toLowerCase();
-    var matches = 0;
-    document.querySelectorAll(".work-card").forEach(function (card) {
-      if (cardHasTech(card, tech)) matches++;
-    });
-    if (!matches) return;
-    chip.classList.add("chip-link");
-    chip.setAttribute("role", "button");
-    chip.setAttribute("tabindex", "0");
-    chip.setAttribute("title", "See projects built with " + chip.textContent.trim());
-    chip.addEventListener("click", function () {
-      applyTechFilter(chip);
-    });
-    chip.addEventListener("keydown", function (event) {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        applyTechFilter(chip);
-      }
-    });
-  });
-
-  /* Case study modal */
+  /* 7b. Case study modal --------------------------------------------------- */
   var caseModal = document.getElementById("case-modal");
   var caseContent = document.getElementById("case-content");
   function closeCase() {
