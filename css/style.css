@@ -598,6 +598,17 @@ html[data-theme="light"] .theme-toggle { color: #8a680c; }
 .work-link:hover svg { transform: translate(2px, -2px); }
 .work-link:hover { text-decoration: underline; }
 
+/* Hero client rating pill (appears only with real reviews) */
+.hero-rating {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  margin-top: 1.15rem; padding: 0.5rem 1.05rem; border-radius: 99px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  color: var(--muted); font-size: 0.9rem;
+}
+.hero-rating svg { width: 16px; height: 16px; color: var(--gold); flex: none; }
+.hero-rating strong { color: var(--text); font-size: 1rem; }
+
 /* 8b. How I work (process) ------------------------------------------------------------ */
 .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.3rem; }
 .process-card {

@@ -80,6 +80,26 @@
     el("hero-tagline").textContent = siteData.profile.tagline;
     el("profile-card-name").textContent = siteData.profile.fullName;
 
+    /* Honest client rating: shown only when at least 2 real reviews
+       exist in siteData.testimonials, and the number is their true
+       average. Nothing is hardcoded here. */
+    var ratingEl = el("hero-rating");
+    var reviews = siteData.testimonials || [];
+    if (ratingEl && reviews.length >= 2) {
+      var total = reviews.reduce(function (sum, r) {
+        return sum + (r.rating || 5);
+      }, 0);
+      var avg = (total / reviews.length).toFixed(1);
+      ratingEl.innerHTML =
+        icon("star") +
+        "<span><strong>" +
+        avg +
+        "</strong> rated by " +
+        reviews.length +
+        " clients</span>";
+      ratingEl.hidden = false;
+    }
+
     el("stats-container").innerHTML = siteData.stats
       .map(function (stat) {
         return (
