@@ -35,6 +35,7 @@ const siteData = {
       "Python · REST APIs",
       "WordPress · Shopify",
       "MySQL · Docker · AWS",
+      "DevOps · AI Automation",
     ],
   },
 
@@ -153,7 +154,7 @@ const siteData = {
     },
     {
       icon: "plug",
-      title: "API Integration and Automation",
+      title: "AI Solutions & Automation",
       description:
         "I connect the tools your business already uses and automate the repetitive work, including AI features where they genuinely help, like chatbots that answer customers and systems that sort inquiries on their own. Your team spends time on the work that matters.",
       bullets: [
@@ -162,6 +163,7 @@ const siteData = {
         "Webhooks and scheduled jobs",
         "Payment gateway integration",
         "CRM and ERP integrations",
+        "DevOps and deployment pipelines (Docker, CI/CD, AWS)",
       ],
     },
     {
@@ -197,7 +199,7 @@ const siteData = {
       institution:
         "Technical Education and Vocational Training Authority (TEVTA)",
       detail:
-        "Practical training in programming, networking, and IT fundamentals.",
+        "Top performer in the batch. Hands-on training in C++, Java, and web fundamentals.",
       achievements: [
         "Top performer in the batch",
         "Hands-on training in C++, Java, and web fundamentals",
@@ -207,25 +209,26 @@ const siteData = {
 
   experience: [
     {
-      date: "Nov 2025 to Present",
+      date: "Nov 2023 to Present",
       title: "Senior Software Engineer & Tech Lead",
       company: "Self Employed · Lahore, Hybrid",
       detail:
-        "Working as a Senior Software Engineer and Tech Lead, leading engineering teams and delivering scalable digital solutions for clients across various industries.",
+        "Working as a Senior Software Engineer and Tech Lead, leading engineering teams and delivering scalable digital solutions for clients across various industries. Focus on full-stack development, AI-driven automation, and system architecture, helping businesses modernize their workflows and reduce operational costs. Lead products include AK Tailor App, a multi-tenant SaaS for tailor shops, and AK Designer Art, a learning platform with 18 courses, 2,700+ students and 20 instructors.",
       highlights: [
+        "Lead products: AK Tailor App, a multi-tenant SaaS for tailor shops, and AK Designer Art, a learning platform with 18 courses, 2,700+ students and 20 instructors",
         "Focus on full-stack development, AI-driven automation, and system architecture",
         "Helping businesses modernize their workflows and reduce operational costs",
-        "Building products that grow with the business",
       ],
       techStack: [
         "Full-Stack Development",
         "AI Automation",
         "System Architecture",
         "Team Leadership",
+        "DevOps",
       ],
     },
     {
-      date: "Jun 2023 to Oct 2025",
+      date: "Jun 2022 to Oct 2023",
       title: "Senior Software Engineer",
       company: "ByteCrew · Full-time · Lahore, On-site",
       detail:
@@ -334,6 +337,8 @@ const siteData = {
     "MongoDB",
     "Redis",
     "Docker",
+    "DevOps",
+    "AI Automation",
     "Git",
     "GitHub",
     "Bitbucket",
@@ -453,8 +458,8 @@ const siteData = {
         "Team collaboration with role-based permissions",
       ],
       technologies: ["Laravel", "React.js", "MySQL", "Redis", "REST APIs", "GitHub"],
-      url: "https://inviggr-app.herokuapp.com/",
-      urlText: "inviggr-app.herokuapp.com",
+      url: "",
+      urlText: "Live site no longer available",
     },
     {
       name: "Propreitors: Property Marketplace MVP",
@@ -472,8 +477,8 @@ const siteData = {
         "Responsive, mobile-first design",
       ],
       technologies: ["Laravel (Lumen)", "React.js", "Next.js", "JavaScript", "GitHub"],
-      url: "https://www.propreitors.com/",
-      urlText: "propreitors.com",
+      url: "",
+      urlText: "Live site no longer available",
     },
     {
       name: "We Are They: Community Platform",
@@ -635,7 +640,7 @@ const siteData = {
   testimonials: [],
 
   contact: {
-    addressLines: ["Sulehri Town, Ward #5 Zafarwal"],
+    addressLines: ["Zafarwal, Punjab, Pakistan"],
     phone: "+92 304 2445911",
     whatsapp: "+92 304 2445911",
     email: "mhamzasulehri143@gmail.com",
@@ -646,3 +651,4 @@ const siteData = {
     company: "Hamza Shabbir",
   },
 };
+
