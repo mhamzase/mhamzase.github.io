@@ -402,11 +402,14 @@
           '</p><div class="work-tags">' +
           tags +
           "</div>" +
-          '<div class="work-actions"><a class="work-link" href="' +
-          project.url +
-          '" target="_blank" rel="noopener noreferrer">Visit live site ' +
-          icon("arrow") +
-          "</a>" +
+          '<div class="work-actions">' +
+          (project.url
+            ? '<a class="work-link" href="' +
+              project.url +
+              '" target="_blank" rel="noopener noreferrer">Visit live site ' +
+              icon("arrow") +
+              "</a>"
+            : '<span class="work-link">Live site no longer available</span>') +
           caseBtn +
           "</div></div></article>"
         );
@@ -537,3 +540,4 @@
   renderContact();
   renderFooterAndCv();
 })();
+
